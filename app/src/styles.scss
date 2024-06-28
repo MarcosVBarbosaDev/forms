@@ -1,0 +1,202 @@
+@use "themes" as *;
+
+@use "@nebular/theme/styles/globals" as *;
+@use "@nebular/auth/styles/globals" as *;
+
+@include nb-install() {
+  @include nb-theme-global();
+  @include nb-auth-global(
+
+  ); // append the install mixin inside of the nb-install
+}
+
+/* Importing Google Fonts */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap");
+
+/* You can add global styles to this file, and also import other style files */
+
+nb-layout .layout .layout-container .content .columns nb-layout-column {
+  padding: 0.5rem !important;
+}
+
+/* Begin style css */
+.nb-theme-dark .table {
+  color: #ffffff;
+}
+
+.nb-theme-cosmic .table {
+  color: #ffffff;
+}
+
+.nb-theme-default .table {
+  color: #212529;
+}
+
+.nb-theme-light .table {
+  color: #212529;
+}
+
+.nb-card-modal {
+  min-width: 90vw !important;
+  max-width: 95vw !important;
+  margin: 0;
+}
+
+.custom-auth-block {
+  max-width: 1500px; /* Defina a largura máxima desejada */
+  margin: 0; /* Centraliza o bloco */
+}
+
+/* Adicionando a regra específica para nb-auth-block */
+nb-auth nb-auth-block {
+  margin: 0 !important;
+  max-width: 1500px !important;
+}
+
+label nb-icon {
+  font-size: 1rem;
+}
+
+// ANGULAR2 SMART TABLE
+angular2-smart-table table tr th a,
+.angular2-smart-title,
+a.sort.asc,
+a.sort.desc {
+  font-weight: 700 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  color: var(--card-header-text-color) !important;
+  text-decoration: none !important;
+}
+
+angular2-smart-table th.angular2-smart-actions-title-add a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem !important;
+  padding: 0.375rem 0.5rem;
+  border-color: #36f;
+  background-color: #36f;
+  color: #fff !important;
+  border-radius: 0.375rem;
+}
+
+.nb-theme-cosmic angular2-smart-table th.angular2-smart-actions-title-add a {
+  background-color: #7b51db;
+  border-color: #7b51db;
+}
+
+.angular2-smart-actions {
+  angular2-st-tbody-edit-delete,
+  angular2-st-tbody-create-cancel,
+  angular2-st-actions,
+  angular2-st-tbody-custom {
+    display: flex !important;
+    height: 100% !important;
+  }
+}
+
+angular2-smart-table .angular2-smart-actions a.angular2-smart-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-size: 1.2rem !important;
+  color: var(--text-primary-color);
+}
+
+// .nb-theme-default angular2-smart-table .angular2-smart-actions a.angular2-smart-action {
+//   color: var(--color-text-primary);
+// }
+
+angular2-smart-table table tr th a,
+angular2-smart-table table tr th,
+angular2-smart-table table tr td {
+  // color: var(--smart-table-header-fg) !important;
+  padding: 0.3rem 1rem !important;
+  font-size: 0.8rem !important;
+}
+
+.angular2-smart-pagination-per-page {
+  font-size: small;
+}
+
+.angular2-smart-pagination-per-page select {
+  font-size: small;
+  padding: 0.375rem 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color) !important;
+  /* appearance: none; */
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.example-items-rows {
+  display: flex;
+  justify-content: center;
+}
+
+.example-items-rows > * {
+  margin: 0 0.1rem !important;
+}
+
+.subtitulo {
+  font-size: 0.8rem;
+}
+
+// TEXTOS NOCIVOS
+.text-fisicos {
+  color: #339966 !important;
+}
+
+.text-quimicos {
+  color: #ff6600 !important;
+}
+
+.text-biologicos {
+  color: #993300 !important;
+}
+
+.text-acidentes {
+  color: #29aae1 !important;
+}
+
+.text-ergonomicos {
+  color: #fced20 !important;
+}
+
+// FUNDOS NOCIVOS
+.bg-fisicos {
+  background-color: #339966 !important;
+  color: #ffffff !important;
+}
+
+.bg-quimicos {
+  background-color: #ff6600 !important;
+  color: #ffffff !important;
+}
+
+.bg-biologicos {
+  background-color: #993300 !important;
+  color: #ffffff !important;
+}
+
+.bg-acidentes {
+  background-color: #29aae1 !important;
+  color: #ffffff !important;
+}
+
+.bg-ergonomicos {
+  background-color: #fced20 !important;
+  // color: #FFFFFF;
+}
+
+// NB CONTEXT-MENU
+nb-context-menu nb-menu {
+  text-align: left;
+}

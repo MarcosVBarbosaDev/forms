@@ -1,0 +1,48 @@
+// @nebular theming framework
+@import '@nebular/theme/styles/theming';
+// @nebular out of the box themes
+@import '@nebular/theme/styles/themes';
+
+@include nb-install-component() {
+
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    // width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+    width: 320px;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    width: auto;
+
+    .sidebar-toggle {
+      @include nb-ltr(padding-right, 1.25rem);
+      @include nb-rtl(padding-left, 1.25rem);
+      text-decoration: none;
+      color: nb-theme(text-hint-color);
+      nb-icon {
+        font-size: 1.75rem;
+      }
+    }
+
+    .logo {
+      padding: 0 1.25rem;
+      font-size: 1.75rem;
+      @include nb-ltr(border-left, 1px solid nb-theme(divider-color));
+      @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .logo img {
+      max-height: 60px !important;
+    }
+  }
+
+}

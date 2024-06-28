@@ -1,0 +1,74 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <nb-card nbSpinnerStatus="primary" nbSpinnerSize="large" class="h-100">
+        <nb-card-header>
+            Conta
+        </nb-card-header>
+        <nb-card-body>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="label" for="nome">Nome: <span class="text-danger">*</span></label>
+                            <input type="text" nbInput fullWidth id="nome" placeholder="Digite o nome completo"
+                                [status]="!formulario.controls['nome'].valid ? 'danger' : 'basic' "
+                                formControlName="nome" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="label" for="sexo">Sexo: <span class="text-danger">*</span></label>
+                            <nb-select placeholder="Selecione o sexo" nbFilterInput fullWidth id="sexo"
+                                formControlName="sexo"
+                                [status]="!formulario.controls['sexo'].valid ? 'danger' : 'basic'">
+                                <nb-option value="F">Feminino</nb-option>
+                                <nb-option value="M">Masculino</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="label" for="cpf">CPF <span class="text-danger">*</span></label>
+                            <input nbInput fullWidth placeholder="Digite o CPF" id="cpf" mask="000.000.000-00"
+                                formControlName="cpf" [status]="!formulario.controls['cpf'].valid ? 'danger' : 'basic'"
+                                (blur)="query_cpf(formulario.get('cpf')?.value)">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="label" for="contato_1">Celular:</label>
+                            <input nbInput fullWidth id="contato_1" placeholder="Digite o Celular"
+                                mask="(00) 0 0000-0000" formControlName="contato_1" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="label" for="contato_2">Telefone:</label>
+                            <input nbInput fullWidth id="contato_2" placeholder="Digite o Telefone"
+                                mask="(00) 0000-0000" formControlName="contato_2" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="label" for="email">Email:<span class="text-danger">*</span></label>
+                            <input type="email" nbInput fullWidth id="email" placeholder="Digite o email"
+                                formControlName="email" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer class="d-flex justify-content-end">
+            <button type="submit" nbButton outline status="primary" class="mx-1" [disabled]="!formulario.valid">
+                Salvar
+            </button>
+            <button nbButton outline status="warning" class="mx-1">
+                Redefinir Senha
+            </button>
+        </nb-card-footer>
+    </nb-card>
+</form>
