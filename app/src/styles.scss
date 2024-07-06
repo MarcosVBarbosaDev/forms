@@ -5,9 +5,7 @@
 
 @include nb-install() {
   @include nb-theme-global();
-  @include nb-auth-global(
-
-  ); // append the install mixin inside of the nb-install
+  @include nb-auth-global(); // append the install mixin inside of the nb-install
 }
 
 /* Importing Google Fonts */
@@ -43,14 +41,19 @@ nb-layout .layout .layout-container .content .columns nb-layout-column {
 }
 
 .custom-auth-block {
-  max-width: 1500px; /* Defina a largura máxima desejada */
-  margin: 0; /* Centraliza o bloco */
+  max-width: 1500px;
+  /* Defina a largura máxima desejada */
+  margin: 0;
+  /* Centraliza o bloco */
 }
 
 /* Adicionando a regra específica para nb-auth-block */
 nb-auth nb-auth-block {
   margin: 0 !important;
-  max-width: 1500px !important;
+  max-width: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 label nb-icon {
@@ -87,6 +90,7 @@ angular2-smart-table th.angular2-smart-actions-title-add a {
 }
 
 .angular2-smart-actions {
+
   angular2-st-tbody-edit-delete,
   angular2-st-tbody-create-cancel,
   angular2-st-actions,
@@ -141,7 +145,7 @@ angular2-smart-table table tr td {
   justify-content: center;
 }
 
-.example-items-rows > * {
+.example-items-rows>* {
   margin: 0 0.1rem !important;
 }
 

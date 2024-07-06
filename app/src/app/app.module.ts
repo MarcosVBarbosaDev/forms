@@ -3,7 +3,7 @@ import localePt from '@angular/common/locales/pt';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { registerLocaleData } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NbThemeModule } from '@nebular/theme';
 import {
@@ -23,7 +23,7 @@ import { PagesModule } from './views/pages/pages.module';
 import { AuthGuard } from './auth-guard.service';
 
 import { NgxAuthModule } from './views/components/auth/auth.module';
-
+import { TokenInterceptor } from './services/token-interceptor.service';
 registerLocaleData(localePt);
 
 const formSetting: any = {
@@ -52,9 +52,9 @@ const formSetting: any = {
             class: NbAuthJWTToken,
             key: 'token',
           },
-          baseEndpoint: 'http://localhost/api',
+          baseEndpoint: 'https://g1a.com.br/appPMO/_backend',
           login: {
-            endpoint: '/auth/login/',
+            endpoint: '/autenticacao/acessar/',
             method: 'post',
             redirect: {
               success: '/pages/',
@@ -64,7 +64,7 @@ const formSetting: any = {
             defaultMessages: ['Acesso liberado.'],
           },
           logout: {
-            endpoint: '/auth/logout/',
+            endpoint: '/autenticacao/sair/',
             method: 'get',
             redirect: {
               success: '/',
@@ -72,9 +72,9 @@ const formSetting: any = {
             },
           },
           requestPass: {
-            endpoint: '/auth/request-password/',
+            endpoint: '/autenticacao/solicitar-nova-senha/',
             redirect: {
-              success: '/auth/login/',
+              success: '/autenticacao/login/',
               failure: null,
             },
             defaultErrors: ['Usuário não encontrado! Tente novamente.'],
@@ -98,6 +98,7 @@ const formSetting: any = {
     AuthGuard,
     HttpClient,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

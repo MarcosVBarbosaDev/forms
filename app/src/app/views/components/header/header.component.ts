@@ -60,8 +60,7 @@ export class HeaderComponent implements OnInit {
       .onTokenChange()
       .subscribe((token: NbAuthJWTToken | any) => {
         if (token.isValid()) {
-          console.log();
-          this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
+          this.user = token.getPayload();
           this.isLoggin = true;
 
           // CRIAR SESSION STORE

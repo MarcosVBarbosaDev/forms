@@ -34,11 +34,8 @@ import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { ModalModule } from '../modal/modal.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  BtnStatusUsuarioComponent,
-  UsersComponent,
-} from './users/users.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { UsuariosComponent,BtnStatusUsuarioComponent, } from './usuarios/usuarios.component';
 
 @NgModule({
   declarations: [
@@ -47,10 +44,11 @@ import { MyAccountComponent } from './my-account/my-account.component';
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
-    UsersComponent,
+ 
     BtnStatusUsuarioComponent,
     MyAccountComponent,
     MyAccountComponent,
+    UsuariosComponent,
   ],
   imports: [
     Angular2SmartTableModule,

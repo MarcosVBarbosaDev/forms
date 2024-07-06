@@ -6,14 +6,88 @@ import { ApiService } from 'src/app/services/api.service';
 import { IColumnType, LocalDataSource, Settings } from 'angular2-smart-table';
 import { FormUserComponent } from '../../modal/form-user/form-user.component';
 
+@Component({
+  template: `
+    <div class="example-items-rows">
+      <nb-toggle
+        [checked]="rowData.status == 1 ? true : false"
+        (checkedChange)="onSwitch($event)"
+        [status]="color"
+      ></nb-toggle>
+    </div>
+  `,
+  styleUrls: ['./usuarios.component.scss'],
+})
+export class BtnStatusUsuarioComponent implements OnInit {
+  @Input() rowData: any;
+  public table: string = 'usuarios/';
+  public color: any;
+  public status: any;
+
+  constructor(
+    private _provider: ApiService,
+    private _usuarios: UsuariosComponent,
+    private _toastrService: NbToastrService
+  ) {}
+
+  ngOnInit(): void {
+    if (this.rowData.status == 1) {
+      this.color = 'info';
+    } else {
+      this.color = 'danger';
+    }
+  }
+
+  onSwitch(event: any) {
+    this._usuarios.loading = true;
+
+    if (event) {
+      this.rowData.status = 1;
+      this.color = 'info';
+    } else {
+      this.rowData.status = 0;
+      this.color = 'danger';
+    }
+
+    let dados = {
+      form: {
+        status: this.rowData.status,
+        id_user: this.rowData.id_user,
+      },
+    };
+
+    this._provider.putAPI(this.table, dados).subscribe(
+      (data: any) => {
+        if (data['status'] == 'success') {
+          this._toastrService.show(data['status'], 'Oba!', {
+            status: 'success',
+            duration: 8000,
+          });
+        } else {
+          this._toastrService.show(data['status'], 'Ops!', {
+            status: 'danger',
+            duration: 8000,
+          });
+        }
+      },
+      (error: any) => {
+        this._usuarios.loading = false;
+      },
+      () => {
+        this._usuarios.loading = false;
+      }
+    );
+  }
+}
 
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  selector: 'app-usuarios',
+  templateUrl: './usuarios.component.html',
+  styleUrls: ['./usuarios.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsuariosComponent {
+
   public source: LocalDataSource = new LocalDataSource();
   public loading: boolean = false;
 
@@ -57,7 +131,14 @@ export class UsersComponent implements OnInit {
         width: '30%',
         title: 'Senha',
       },
-      
+      status: {
+        title: 'STATUS',
+        width: '10%',
+        type: IColumnType.Custom,
+        sortDirection: 'desc',
+        renderComponent: BtnStatusUsuarioComponent,
+        filter: false,
+      },
     },
   };
 
@@ -119,4 +200,5 @@ export class UsersComponent implements OnInit {
       })
       .onClose.subscribe((update) => update && this.getDados());
   }
+
 }

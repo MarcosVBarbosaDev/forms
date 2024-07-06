@@ -30,7 +30,7 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
   {
     title: 'Usuários',
     icon: 'people-outline',
-    link: '/pages/users',
+    link: '/pages/usuarios',
     home: true,
   },
   {

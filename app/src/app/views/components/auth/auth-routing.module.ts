@@ -4,6 +4,8 @@ import { NbAuthComponent } from '@nebular/auth';
 
 import { NgxLoginComponent } from './login/login.component';
 import { NgxLogoutComponent } from './logout/logout.component';
+import { NgxResetPasswordComponent } from './reset-password/reset-password.component';
+import { NgxRequestPasswordComponent } from './request-password/request-password.component';
 
 const title: string = 'PMO | ';
 
@@ -25,6 +27,16 @@ export const routes: Routes = [
         path: 'logout',
         title: title + 'Logout',
         component: NgxLogoutComponent,
+      },
+      {
+          path: 'request-password',
+          title: title + 'Recuperar acesso',
+          component: NgxRequestPasswordComponent,
+      },
+      {
+          path: 'reset-password',
+          title: title + 'Alterar senha',
+          component: NgxResetPasswordComponent,
       },
     ],
   },
