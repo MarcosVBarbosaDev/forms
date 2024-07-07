@@ -9,7 +9,7 @@ import { NgxRequestPasswordComponent } from './request-password/request-password
 
 const title: string = 'PMO | ';
 
-export const routes: Routes = [
+const routes: Routes = [
   {
     path: 'auth',
     component: NbAuthComponent,
@@ -29,14 +29,14 @@ export const routes: Routes = [
         component: NgxLogoutComponent,
       },
       {
-          path: 'request-password',
-          title: title + 'Recuperar acesso',
-          component: NgxRequestPasswordComponent,
+        path: 'request-password',
+        title: title + 'Recuperar acesso',
+        component: NgxRequestPasswordComponent,
       },
       {
-          path: 'reset-password',
-          title: title + 'Alterar senha',
-          component: NgxResetPasswordComponent,
+        path: 'reset-password',
+        title: title + 'Alterar senha',
+        component: NgxResetPasswordComponent,
       },
     ],
   },

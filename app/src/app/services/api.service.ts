@@ -7,10 +7,10 @@ import { map, retry, catchError, timeout } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ApiService {
-  server: string = 'http://localhost/api/';
-  private token = '1';
+  server: string = 'https://g1a.com.br/appPMO/_backend/';
+  private token = 'ptFoqK9MMxcMrP9MJaWchsDpjGmtCVYRg5RX0xkaemRHEJcWpKejLlXxiaj4E6xl';
 
-  constructor(private http: HttpClient, private toastr: NbToastrService) {}
+  constructor(private http: HttpClient, private toastr: NbToastrService) { }
 
   dadosAPI(dados: any, api: string) {
     const httpOptions = {
@@ -47,7 +47,7 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
-        // Authorization: `Bearer ${this.token}`,
+        Authorization: this.token,
       }),
     };
 
@@ -79,7 +79,7 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
-        // Authorization: `Bearer ${this.token}`,
+        Authorization: this.token,
       }),
       body: dados,
     };
@@ -112,7 +112,7 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
-        Authorization: `Bearer ${this.token}`,
+        Authorization: this.token,
       }),
       body: dados,
     };
@@ -145,7 +145,7 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
-        // Authorization: `Bearer ${token}`,
+        Authorization: this.token,
       }),
       body: dados,
     };

@@ -32,12 +32,11 @@ export class MyAccountComponent {
       .onTokenChange()
       .subscribe((token: NbAuthJWTToken | any) => {
         if (token.isValid()) {
-          console.log();
           this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
         }
       });
 
-    this.setForm(this.user.user_id);
+    this.setForm(this.user.fk_colaborador);
   }
 
   public formulario: FormGroup = this._formBuilder.group({
@@ -47,27 +46,25 @@ export class MyAccountComponent {
     cpf: [null, [Validators.minLength(11)]],
     contato_1: [null],
     contato_2: [null],
-    email: [null, [Validators.required, Validators.email]],
   });
 
   setForm(id: number) {
     this.loading = true;
     this.source = new LocalDataSource();
 
-    let url = 'rl_users_colaboradores/?id_user=' + id;
+    let url = 'usuarios/?fk_colaborador=' + id;
 
     return this._provider.getAPI(url).subscribe(
       (data) => {
         // CARREGAR DADOS NA TABELA
         if (data['status'] === 'success') {
           this.formulario.patchValue({
-            id_colaborador: data['rows']['id_colaborador'],
-            nome: data['rows']['nome'],
-            cpf: data['rows']['cpf'],
-            sexo: data['rows']['sexo'].toString(),
-            contato_1: data['rows']['contato_1'],
-            contato_2: data['rows']['contato_2'],
-            email: data['rows']['email'],
+            id_colaborador: data['result'][0]['id_colaborador'],
+            nome: data['result'][0]['nome'],
+            cpf: data['result'][0]['cpf'],
+            sexo: data['result'][0]['sexo'].toString(),
+            contato_1: data['result'][0]['contato_1'],
+            contato_2: data['result'][0]['contato_2'],
           });
         } else {
           this._toastrService.show(data, 'Ops!', {
@@ -82,7 +79,7 @@ export class MyAccountComponent {
           duration: 8000,
         });
       },
-      () => {}
+      () => { }
     );
   }
 
@@ -107,7 +104,7 @@ export class MyAccountComponent {
           duration: 8000,
         });
       },
-      () => {}
+      () => { }
     );
   }
 
@@ -127,7 +124,7 @@ export class MyAccountComponent {
           duration: 8000,
         });
       },
-      () => {}
+      () => { }
     );
   }
 }
