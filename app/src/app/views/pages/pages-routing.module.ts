@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from 'src/app/auth-guard.service';
-import { UsersComponent } from './users/users.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const title: string = 'PMO | ';
 
@@ -28,7 +28,7 @@ export const routes: Routes = [
       {
         path: 'users',
         title: title + 'Usuários',
-        component: UsersComponent,
+        component: UsuariosComponent,
       },
       {
         path: '**',

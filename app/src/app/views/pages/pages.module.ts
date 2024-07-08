@@ -46,7 +46,6 @@ import { UsuariosComponent,BtnStatusUsuarioComponent, } from './usuarios/usuario
     SidebarComponent,
     BtnStatusUsuarioComponent,
     MyAccountComponent,
-    MyAccountComponent,
     UsuariosComponent,
   ],
   imports: [

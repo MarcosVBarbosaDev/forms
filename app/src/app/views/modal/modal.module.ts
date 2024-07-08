@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
+  NbAlertModule,
   NbAutocompleteModule,
   NbButtonModule,
   NbCardModule,
@@ -39,7 +40,7 @@ import { FormResetPasswordComponent } from './form-reset-password/form-reset-pas
     NbTabsetModule,
     NbToggleModule,
     NbTooltipModule,
-    FormResetPasswordComponent
+    NbAlertModule
   ],
   exports: [],
   providers: [],

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NbThemeService, NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { LocalDataSource } from 'angular2-smart-table';
 import { ApiService } from 'src/app/services/api.service';
+import { FormResetPasswordComponent } from '../../modal/form-reset-password/form-reset-password.component';
 
 @Component({
   selector: 'app-my-account',
@@ -12,6 +13,8 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class MyAccountComponent {
   public user: any;
+
+  public id: any;
 
   public table: string;
 
@@ -24,7 +27,8 @@ export class MyAccountComponent {
     private _themeService: NbThemeService,
     private _authService: NbAuthService,
     private _provider: ApiService,
-    private _toastrService: NbToastrService
+    private _toastrService: NbToastrService,
+    private _dialogService: NbDialogService
   ) {
     this._themeService.onThemeChange();
 
@@ -35,6 +39,8 @@ export class MyAccountComponent {
           this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
         }
       });
+
+    this.id = this.user.user_id;
 
     this.setForm(this.user.fk_colaborador);
   }
@@ -115,7 +121,7 @@ export class MyAccountComponent {
       (data) => {
         if (data['result']) {
           this._provider.showToast('CPF já existe', 'Falha', 'danger');
-          this.setForm(this.user.fk_colaborador);
+          this.setForm(this.user.user_id);
         }
       },
       (error: any) => {
@@ -127,4 +133,19 @@ export class MyAccountComponent {
       () => { }
     );
   }
+
+  showDialog() {
+    this._dialogService
+      .open(FormResetPasswordComponent, {
+        context: {
+          id: this.id
+        } as Partial<FormResetPasswordComponent>,
+        closeOnEsc: true,
+        hasBackdrop: true,
+        closeOnBackdropClick: false,
+        hasScroll: true,
+      })
+      .onClose.subscribe((update) => update && this.setForm(this.user.fk_colaborador));
+  }
+
 }
