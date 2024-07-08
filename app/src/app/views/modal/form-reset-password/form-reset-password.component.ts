@@ -7,4 +7,23 @@ import { Component } from '@angular/core';
 })
 export class FormResetPasswordComponent {
 
+  user: any = {};
+  submitted = false;
+
+
+  // Função para verificar se a senha e a confirmação de senha são iguais
+  isPasswordConfirmed(): boolean {
+    return this.user.senha === this.user.confirmaSenha;
+  }
+
+  onSubmit() { }
+  // Método de exemplo para obter valor de configuração
+  getConfigValue(key: string) {
+    return {
+      required: true,
+      minLength: 4,
+      maxLength: 50
+    };
+  }
+
 }

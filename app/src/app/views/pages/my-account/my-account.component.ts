@@ -113,9 +113,9 @@ export class MyAccountComponent {
 
     return this._provider.getAPI(url).subscribe(
       (data) => {
-        if (data['rows']) {
+        if (data['result']) {
           this._provider.showToast('CPF já existe', 'Falha', 'danger');
-          this.setForm(this.user.user_id);
+          this.setForm(this.user.fk_colaborador);
         }
       },
       (error: any) => {

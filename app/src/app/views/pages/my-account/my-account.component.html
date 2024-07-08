@@ -13,7 +13,13 @@
                             [status]="!formulario.controls['nome'].valid ? 'danger' : 'basic'"
                             formControlName="nome" />
                     </div>
-                    <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="col-md-3 col-sm-12 mb-3"> <!-- Alterado para col-sm-12 -->
+                        <label class="label" for="cpf">CPF <span class="text-danger">*</span></label>
+                        <input nbInput fullWidth placeholder="Digite o CPF" id="cpf" mask="000.000.000-00"
+                            formControlName="cpf" [status]="!formulario.controls['cpf'].valid ? 'danger' : 'basic'"
+                            (blur)="query_cpf(formulario.get('cpf')?.value)">
+                    </div>
+                    <div class="col-md-3 col-sm-12 mb-3"> <!-- Alterado para col-sm-12 -->
                         <label class="label" for="sexo">Sexo: <span class="text-danger">*</span></label>
                         <nb-select placeholder="Selecione o sexo" nbFilterInput fullWidth id="sexo"
                             formControlName="sexo"
@@ -22,13 +28,8 @@
                             <nb-option value="M">Masculino</nb-option>
                         </nb-select>
                     </div>
-                    <div class="col-md-3 col-sm-6 mb-3">
-                        <label class="label" for="cpf">CPF <span class="text-danger">*</span></label>
-                        <input nbInput fullWidth placeholder="Digite o CPF" id="cpf" mask="000.000.000-00"
-                            formControlName="cpf" [status]="!formulario.controls['cpf'].valid ? 'danger' : 'basic'"
-                            (blur)="query_cpf(formulario.get('cpf')?.value)">
-                    </div>
                 </div>
+                
 
                 <div class="row">
                     <div class="col-md-3 col-sm-6 mb-3">
@@ -47,7 +48,7 @@
         </nb-card-body>
         <nb-card-footer class="d-flex justify-content-end">
             <div class="row w-100 d-flex justify-content-end">
-                <div class="col-lg-6 col-md-10 col-sm-12 ">
+                <div class="col-lg-4 col-md-10 col-sm-12 ">
                     <div class="row w-100">
                         <div class="col-md-6 col-sm-12 mb-3">
                             <button type="submit" nbButton outline status="primary" class="w-100" [disabled]="!formulario.valid">

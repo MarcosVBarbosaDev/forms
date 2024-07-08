@@ -39,8 +39,9 @@ import { FormResetPasswordComponent } from './form-reset-password/form-reset-pas
     NbTabsetModule,
     NbToggleModule,
     NbTooltipModule,
+    FormResetPasswordComponent
   ],
   exports: [],
   providers: [],
 })
-export class ModalModule {}
+export class ModalModule { }

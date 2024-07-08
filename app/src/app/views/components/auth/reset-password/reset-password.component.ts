@@ -47,8 +47,7 @@ export class NgxResetPasswordComponent extends NbResetPasswordComponent implemen
     // Verificar se os dados necessários estão presentes
     if (!this.user.senha || !this.token_reset_senha) {
       // Exibir mensagem de erro ou tratar de outra forma
-      console.log('senha' + this.user.senha);
-      console.log('token_reset_senha' + this.token_reset_senha);
+
       return;
     }
 
