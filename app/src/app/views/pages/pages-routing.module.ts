@@ -26,7 +26,7 @@ export const routes: Routes = [
         component: MyAccountComponent,
       },
       {
-        path: 'users',
+        path: 'usuarios',
         title: title + 'Usuários',
         component: UsuariosComponent,
       },

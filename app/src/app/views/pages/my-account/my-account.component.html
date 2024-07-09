@@ -5,66 +5,74 @@
         </nb-card-header>
         <nb-card-body>
             <div class="card-body">
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="label" for="nome">Nome: <span class="text-danger">*</span></label>
-                        <input type="text" nbInput fullWidth id="nome" placeholder="Digite o nome completo"
-                            [status]="!formulario.controls['nome'].valid ? 'danger' : 'basic'"
-                            formControlName="nome" />
+                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="col-lg-2 col-md-4 col-sm-12">
+                        <img src="https://placehold.co/400" class="img-thumbnail" alt="...">
+                        <input type="file" class="form-control" id="inputGroupFile01">
                     </div>
-                    <div class="col-md-3 col-sm-12 mb-3"> <!-- Alterado para col-sm-12 -->
-                        <label class="label" for="cpf">CPF <span class="text-danger">*</span></label>
-                        <input nbInput fullWidth placeholder="Digite o CPF" id="cpf" mask="000.000.000-00"
-                            formControlName="cpf" [status]="!formulario.controls['cpf'].valid ? 'danger' : 'basic'"
-                            (blur)="query_cpf(formulario.get('cpf')?.value)">
-                    </div>
-                    <div class="col-md-3 col-sm-12 mb-3"> <!-- Alterado para col-sm-12 -->
-                        <label class="label" for="sexo">Sexo: <span class="text-danger">*</span></label>
-                        <nb-select placeholder="Selecione o sexo" nbFilterInput fullWidth id="sexo"
-                            formControlName="sexo"
-                            [status]="!formulario.controls['sexo'].valid ? 'danger' : 'basic'">
-                            <nb-option value="F">Feminino</nb-option>
-                            <nb-option value="M">Masculino</nb-option>
-                        </nb-select>
+                    <div class="col-lg-10 col-md-8 col-sm-12 p-2">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 mb-3">
+                                <label class="label" for="nome">Nome: <span class="text-danger">*</span></label>
+                                <input type="text" nbInput fullWidth id="nome" placeholder="Digite o nome completo"
+                                    [status]="!formulario.controls['nome'].valid ? 'danger' : 'basic'"
+                                    formControlName="nome" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 mb-3"> <!-- Alterado para col-sm-12 -->
+                                <label class="label" for="cpf">CPF <span class="text-danger">*</span></label>
+                                <input nbInput fullWidth placeholder="Digite o CPF" id="cpf" mask="000.000.000-00"
+                                    formControlName="cpf"
+                                    [status]="!formulario.controls['cpf'].valid ? 'danger' : 'basic'"
+                                    (blur)="query_cpf(formulario.get('cpf')?.value)">
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 mb-3"> <!-- Alterado para col-sm-12 -->
+                                <label class="label" for="sexo">Sexo: <span class="text-danger">*</span></label>
+                                <nb-select placeholder="Selecione o sexo" nbFilterInput fullWidth id="sexo"
+                                    formControlName="sexo"
+                                    [status]="!formulario.controls['sexo'].valid ? 'danger' : 'basic'">
+                                    <nb-option value="F">Feminino</nb-option>
+                                    <nb-option value="M">Masculino</nb-option>
+                                </nb-select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                                <label class="label" for="contato_1">Celular:</label>
+                                <input nbInput fullWidth id="contato_1" placeholder="Digite o Celular"
+                                    mask="(00) 0 0000-0000" formControlName="contato_1" />
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                                <label class="label" for="contato_2">Telefone:</label>
+                                <input nbInput fullWidth id="contato_2" placeholder="Digite o Telefone"
+                                    mask="(00) 0000-0000" formControlName="contato_2" />
+                            </div>
+                            <div class="col col-md-6 col-sm-12 mb-3">
+                                <label class="label" for="contato_2">Foto:</label>
+                                <input type="file" class="form-control" id="inputGroupFile01">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 mb-3">
-                        <label class="label" for="contato_1">Celular:</label>
-                        <input nbInput fullWidth id="contato_1" placeholder="Digite o Celular"
-                            mask="(00) 0 0000-0000" formControlName="contato_1" />
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-3">
-                        <label class="label" for="contato_2">Telefone:</label>
-                        <input nbInput fullWidth id="contato_2" placeholder="Digite o Telefone"
-                            mask="(00) 0000-0000" formControlName="contato_2" />
-                    </div>
-                </div>
-
             </div>
         </nb-card-body>
         <nb-card-footer class="d-flex justify-content-end">
             <div class="row w-100 d-flex justify-content-end">
                 <div class="col-lg-4 col-md-10 col-sm-12 ">
-                    <div class="row w-100">
-                        <div class="col-md-6 col-sm-12 mb-3">
-                            <button type="submit" nbButton outline status="primary" class="w-100" [disabled]="!formulario.valid">
+                    <div class="row w-100 d-flex justify-content-end">
+                        <div class="col-lg-6 col-md-4 col-sm-12 mb-3">
+                            <button type="submit" nbButton outline status="primary" class="w-100"
+                                [disabled]="!formulario.valid">
                                 Salvar
                             </button>
                         </div>
-                        <div class="col-md-6 col-sm-12 mb-3">
-                            <a nbButton outline status="warning" class="w-100"  (click)="showDialog()">
+                        <div class="col-lg-6 col-md-5 col-sm-12 mb-3">
+                            <a nbButton outline status="warning" class="w-100" (click)="showDialog()">
                                 Redefinir Senha
                             </a>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </nb-card-footer>
-        
+
     </nb-card>
 </form>

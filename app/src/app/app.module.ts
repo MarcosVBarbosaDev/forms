@@ -92,6 +92,7 @@ const formSetting: any = {
     HttpClientModule,
     PagesModule,
     NgxAuthModule,
+    
   ],
   providers: [
     ApiService,

@@ -15,11 +15,9 @@ export class FormUserComponent {
   @Input() id: number = 0;
 
   public formulario: FormGroup = this._formBuilder.group({
-    id_user: [this.id, [Validators.required]],
-    name: [' ', [Validators.required, Validators.maxLength(50)]],
-    password: [{ value: '', disabled: true }],
-    nivel: [null, [Validators.required]],
-    status: ['1'],
+    id_usuario: [this.id, [Validators.required]],
+    email: [null, [Validators.required]],
+    acesso: [null, [Validators.required]],
   });
 
   constructor(
@@ -27,7 +25,7 @@ export class FormUserComponent {
     private _provider: ApiService,
     protected _dialogRef: NbDialogRef<''>
   ) {
-    this.formulario.patchValue({ password: this.geraPassord() });
+
   }
 
   ngOnInit(): void {
@@ -128,26 +126,30 @@ export class FormUserComponent {
     return password;
   }
 
-  query_name(name: any) {
-    let url = 'users/?name=' + name;
+  query_email(email: any) {
+    if (email) {
+      let url = 'usuarios/?email=' + email;
 
-    return this._provider.getAPI(url).subscribe(
-      (data) => {
-        if (data['rows']) {
-          if (this.metodo == 'POST') {
-            this.formulario.controls['name'].setValue(' ');
-            this._provider.showToast('Usuário já existe', 'Falha', 'danger');
-          } else {
-            this._provider.showToast('Usuário já existe', 'Falha', 'danger');
-            this.setForm(this.id);
+      return this._provider.getAPI(url).subscribe(
+        (data) => {
+          if (data['status'] == 'success') {
+            if (this.metodo == 'POST') {
+              this.formulario.controls['email'].setValue('');
+              this._provider.showToast('E-mail já existe', 'Falha', 'danger');
+            } else {
+              this._provider.showToast('E-mail já existe', 'Falha', 'danger');
+              this.setForm(this.id);
+            }
           }
-        }
-      },
-      (error: any) => {
-        console.log('erro' + error);
-      },
-      () => {}
-    );
+        },
+        (error: any) => {
+          console.log('erro' + error);
+        },
+        () => { }
+      );
+    } else {
+      return
+    }
   }
 
   close() {

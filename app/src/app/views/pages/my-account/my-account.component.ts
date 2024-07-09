@@ -138,7 +138,7 @@ export class MyAccountComponent {
     this._dialogService
       .open(FormResetPasswordComponent, {
         context: {
-          id: this.id
+          id: this.user.user_id
         } as Partial<FormResetPasswordComponent>,
         closeOnEsc: true,
         hasBackdrop: true,

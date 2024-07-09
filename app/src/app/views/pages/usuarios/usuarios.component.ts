@@ -1,18 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
 
 import { ApiService } from 'src/app/services/api.service';
 
 import { IColumnType, LocalDataSource, Settings } from 'angular2-smart-table';
 import { FormUserComponent } from '../../modal/form-user/form-user.component';
+import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 
 @Component({
   template: `
     <div class="example-items-rows">
       <nb-toggle
-        [checked]="rowData.status == 1 ? true : false"
+        [checked]="rowData.ativo == 1 ? true : false"
         (checkedChange)="onSwitch($event)"
         [status]="color"
+          [disabled]="toggleDisabled"
       ></nb-toggle>
     </div>
   `,
@@ -23,38 +25,56 @@ export class BtnStatusUsuarioComponent implements OnInit {
   public table: string = 'usuarios/';
   public color: any;
   public status: any;
+  public toggleDisabled: boolean = false;
+  public user: any;
 
   constructor(
     private _provider: ApiService,
     private _usuarios: UsuariosComponent,
-    private _toastrService: NbToastrService
-  ) {}
+    private _toastrService: NbToastrService,
+    private _themeService: NbThemeService,
+    private _authService: NbAuthService,
+  ) { }
 
   ngOnInit(): void {
-    if (this.rowData.status == 1) {
+    this._themeService.onThemeChange();
+
+    this._authService
+      .onTokenChange()
+      .subscribe((token: NbAuthJWTToken | any) => {
+        if (token.isValid()) {
+          this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
+        }
+      });
+
+    if (this.rowData.ativo == 1) {
       this.color = 'info';
     } else {
       this.color = 'danger';
+    }
+
+    if (this.user.user_id == this.rowData.id_usuario) {
+      // Bloqueia interação com o toggle
+      this.toggleDisabled = true;
     }
   }
 
   onSwitch(event: any) {
+
     this._usuarios.loading = true;
 
     if (event) {
-      this.rowData.status = 1;
+      this.rowData.ativo = 1;
       this.color = 'info';
     } else {
-      this.rowData.status = 0;
+      this.rowData.ativo = 0;
       this.color = 'danger';
     }
 
     let dados = {
-      form: {
-        status: this.rowData.status,
-        id_user: this.rowData.id_user,
-      },
-    };
+      id_usuario: this.rowData.id_usuario,
+      ativo: this.rowData.ativo
+    }
 
     this._provider.putAPI(this.table, dados).subscribe(
       (data: any) => {
@@ -122,16 +142,16 @@ export class UsuariosComponent {
       ],
     },
     columns: {
-      name: {
+      usuario: {
         width: '60%',
         title: 'Usuario',
         sortDirection: 'asc',
       },
-      password: {
+      email: {
         width: '30%',
-        title: 'Senha',
+        title: 'email',
       },
-      status: {
+      ativo: {
         title: 'STATUS',
         width: '10%',
         type: IColumnType.Custom,
@@ -150,20 +170,20 @@ export class UsuariosComponent {
     this.getDados();
   }
 
-  expDados() {}
+  expDados() { }
 
   getDados() {
     this.loading = true;
     this.source = new LocalDataSource();
 
-    let url = 'users/';
+    let url = 'usuarios/';
 
     return this._provider.getAPI(url).subscribe(
       (data) => {
         // CARREGAR DADOS NA TABELA
         if (data['status'] === 'success') {
           // this.status(data['result']);F
-          this.source.load(data['rows']);
+          this.source.load(data['result']);
         } else {
           this.loading = false;
         }
@@ -184,7 +204,7 @@ export class UsuariosComponent {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   showDialog(id: number, metodo: string) {
     this._dialogService

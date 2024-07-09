@@ -1,52 +1,42 @@
-<nb-card class="nb-card-modal" [nbSpinner]="loading">
-    <nb-card-header>
-        <div class="row">
-            <div class="col">
-                Novo Usuário
+<form [formGroup]="formulario" #validForm="ngForm" (ngSubmit)="onSubmit()" aria-labelledby="title">
+    <nb-card class="col-sm-12" [nbSpinner]="loading">
+        <nb-card-header>
+            <div class="row">
+                <div class="col">
+                    Novo Usuário
+                </div>
+                <div class="col-2">
+                    <button type="button" nbButton status="danger" class="close float-end" (click)="close()"
+                        size="tiny">
+                        <nb-icon icon="close-outline"></nb-icon>
+                    </button>
+                </div>
             </div>
-            <div class="col-2">
-                <button type="button" nbButton status="danger" class="close float-end" (click)="close()" size="tiny">
-                    <nb-icon icon="close-outline"></nb-icon>
-                </button>
-            </div>
-        </div>
-    </nb-card-header>
-    <nb-card-body>
-        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-            <div class="card-body d-flex flex-column justify-content-between h-100" style="padding: 0;">
-                <div class="row mb-2">
-                    <div class="col-12">
-                        <label class="label" for="name">Usuário<span class="text-danger">*</span></label>
-                        <input type="text" nbInput fullWidth id="name" placeholder="Usuário"
-                            [status]="!formulario.controls['name'].valid ? 'danger' : 'basic'" formControlName="name"
-                            (blur)="query_name(formulario.get('name')?.value)"
-                            (blur)="formulario.controls['name'].setValue(formulario.controls['name'].value.trim())" />
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <label class="label" for="email">E-mail<span class="text-danger">*</span></label>
+                    <input type="text" nbInput fullWidth id="email" placeholder="E-mail"
+                        [status]="!formulario.controls['email'].valid ? 'danger' : 'basic'" formControlName="email"
+                        (blur)="query_email(formulario.get('email')?.value)"
+                        (blur)="formulario.controls['email'].setValue(formulario.controls['email'].value.trim())" />
 
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="d-flex justify-content-between">
-                        <div class="col-6">
-                            <label class="label" for="nivel">Acesso <span class="text-danger">*</span></label>
-                            <nb-select placeholder="Selecione o Nivel" nbFilterInput fullWidth id="nivel"
-                                formControlName="nivel"
-                                [status]="!formulario.controls['nivel'].valid ? 'danger' : 'basic'">
-                                <nb-option value="1">Operador</nb-option>
-                                <nb-option value="2">Administrador</nb-option>
-                            </nb-select>
-                        </div>
-                        <div class="col-5">
-                            <label class="label" for="password">Senha</label>
-                            <input type="text" nbInput id="password" name="password" formControlName="password">
-                        </div>
-                    </div>
                 </div>
             </div>
-            <nb-card-footer class="d-flex flex-row-reverse px-1">
-                <button type="submit" nbButton outline status="primary" class=""
-                    [disabled]="!formulario.valid">Salvar</button>
-                <button nbButton outline status="danger" (click)="close()" class="mx-1">Fechar</button>
-            </nb-card-footer>
-        </form>
-    </nb-card-body>
-</nb-card>
+            <div class="row mb-2">
+                <label class="label" for="acesso">Acesso <span class="text-danger">*</span></label>
+                <nb-select placeholder="Selecione o acesso" nbFilterInput fullWidth id="nivel" formControlName="acesso"
+                    [status]="!formulario.controls['acesso'].valid ? 'danger' : 'basic'">
+                    <nb-option value="1">Operador</nb-option>
+                    <nb-option value="2">Administrador</nb-option>
+                </nb-select>
+            </div>
+        </nb-card-body>
+        <nb-card-footer class="px-4">
+            <button nbButton status="primary" fullWidth size="large" [disabled]="!validForm.valid">
+                Alterar a senha
+            </button>
+        </nb-card-footer>
+    </nb-card>
+</form>

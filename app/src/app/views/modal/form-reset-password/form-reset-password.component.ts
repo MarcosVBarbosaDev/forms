@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { ApiService } from 'src/app/services/api.service';
+
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-form-reset-password',
@@ -20,10 +22,10 @@ export class FormResetPasswordComponent {
   public dados: any;
 
   @Input() id: any;
-
   constructor(
     private _toastrService: NbToastrService,
     private _provider: ApiService,
+    protected _dialogRef: NbDialogRef<''>
   ) { }
 
   ngOnInit(): void {
@@ -32,12 +34,12 @@ export class FormResetPasswordComponent {
 
   getDados(id: number) {
     this.loading = true;
-    let url = 'usuarios/?fk_colaborador=' + id;
+    let url = 'usuarios/?id=' + id;
 
     this._provider.getAPI(url).subscribe(
       (data) => {
         if (data['status'] === 'success') {
-          this.dados = data['result'][0];
+          this.dados = data['result'];
         } else {
           this._toastrService.show(data, 'Ops!', {
             status: 'danger',
@@ -55,20 +57,17 @@ export class FormResetPasswordComponent {
     );
   }
 
+  calcularHashSHA256(senha: string): string {
+    const hash = CryptoJS.SHA256(senha).toString(CryptoJS.enc.Hex);
+    return hash;
+  }
+
   resetPass() {
 
-    this.dados['senha'] = this.user.senha;
+    this.dados['senha'] = this.calcularHashSHA256(this.user.senha);
 
-    console.log(this.dados);
-    return
 
-    let dados = {
-      form: {
-        nova_senha: this.user.senha,
-      }
-    };
-
-    this._provider.putAPI(this.table, dados).subscribe(
+    this._provider.putAPI(this.table, this.dados).subscribe(
       (data: any) => {
         if (data['status'] === 'success') {
           this._provider.showToast('Sucesso!', data['result'], 'success');
@@ -97,6 +96,8 @@ export class FormResetPasswordComponent {
     return this.user.senha === this.user.confirmaSenha;
   }
 
-  close() { }
+  close() {
+    this._dialogRef.close();
+  }
 
 }
