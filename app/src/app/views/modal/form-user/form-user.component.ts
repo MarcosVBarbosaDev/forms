@@ -10,13 +10,14 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class FormUserComponent {
   public loading: boolean = false;
-  public table: string = 'users/';
+  public table: string = 'usuarios/';
   metodo: string = 'POST';
   @Input() id: number = 0;
 
   public formulario: FormGroup = this._formBuilder.group({
     id_usuario: [this.id, [Validators.required]],
     email: [null, [Validators.required]],
+    usuario: [null, [Validators.required]],
     acesso: [null, [Validators.required]],
   });
 
@@ -36,17 +37,11 @@ export class FormUserComponent {
   }
 
   onSubmit() {
-    // Temporariamente habilitar o campo desativado
-    this.formulario.get('password')?.enable();
 
-    let dados = {
-      form: this.formulario.value,
-    };
+    let dados = this.formulario.value
 
-    // Reverter o campo para seu estado desativado
-    this.formulario.get('password')?.disable();
 
-    this.loading = true;
+    // this.loading = true;
 
     if (this.metodo == 'POST') {
       this._provider.postAPI(this.table, dados).subscribe(
@@ -88,17 +83,17 @@ export class FormUserComponent {
   setForm(id: number) {
     this.loading = true;
 
-    let url = 'users/?id_user=' + id;
+    let url = 'usuarios/?id_usuario=' + id;
 
     return this._provider.getAPI(url).subscribe(
       (data) => {
         // CARREGAR DADOS NA FORMULÁRIO
         if (data['status'] === 'success') {
           this.formulario.patchValue({
-            id_user: data['rows']['id_user'],
-            name: data['rows']['name'],
-            password: data['rows']['password'],
-            nivel: data['rows']['nivel'].toString(),
+            id_usuario: data['result']['id_usuario'],
+            usuario: data['result']['name'],
+            acesso: data['result']['acesso'],
+            email: data['result']['email'],
           });
         } else {
           this._provider.showToast('OPS!', data['result'], 'danger');
@@ -113,46 +108,8 @@ export class FormUserComponent {
     );
   }
 
-  geraPassord(): string {
-    const chars =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charsLength = chars.length;
-    let password = '';
-
-    for (let i = 0; i < 6; i++) {
-      password += chars[Math.floor(Math.random() * charsLength)];
-    }
-
-    return password;
-  }
-
-  query_email(email: any) {
-    if (email) {
-      let url = 'usuarios/?email=' + email;
-
-      return this._provider.getAPI(url).subscribe(
-        (data) => {
-          if (data['status'] == 'success') {
-            if (this.metodo == 'POST') {
-              this.formulario.controls['email'].setValue('');
-              this._provider.showToast('E-mail já existe', 'Falha', 'danger');
-            } else {
-              this._provider.showToast('E-mail já existe', 'Falha', 'danger');
-              this.setForm(this.id);
-            }
-          }
-        },
-        (error: any) => {
-          console.log('erro' + error);
-        },
-        () => { }
-      );
-    } else {
-      return
-    }
-  }
-
   close() {
     this._dialogRef.close();
   }
 }
+
