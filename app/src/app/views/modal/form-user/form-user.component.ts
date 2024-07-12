@@ -37,17 +37,18 @@ export class FormUserComponent {
   }
 
   onSubmit() {
+    this.loading = true;
 
     let dados = this.formulario.value
 
-
-    // this.loading = true;
-
     if (this.metodo == 'POST') {
+
       this._provider.postAPI(this.table, dados).subscribe(
         (data: any) => {
           if (data['status'] == 'success') {
             this._provider.showToast('OBA!', data['result'], 'success');
+          } else if (data['error'] && data['error'].includes('1062 Duplicate entry')) {
+            this._provider.showToast('OPS!', 'Erro de duplicidade de informação.', 'danger');
           } else {
             this._provider.showToast('OPS!', data['result'], 'danger');
           }
@@ -83,7 +84,7 @@ export class FormUserComponent {
   setForm(id: number) {
     this.loading = true;
 
-    let url = 'usuarios/?id_usuario=' + id;
+    let url = 'usuarios/?id=' + id;
 
     return this._provider.getAPI(url).subscribe(
       (data) => {
@@ -91,8 +92,8 @@ export class FormUserComponent {
         if (data['status'] === 'success') {
           this.formulario.patchValue({
             id_usuario: data['result']['id_usuario'],
-            usuario: data['result']['name'],
-            acesso: data['result']['acesso'],
+            usuario: data['result']['usuario'],
+            acesso: data['result']['acesso'].toString(),
             email: data['result']['email'],
           });
         } else {

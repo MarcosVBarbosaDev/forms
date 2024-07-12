@@ -7,23 +7,24 @@ import { map, retry, catchError, timeout } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ApiService {
-  server: string = 'https://g1a.com.br/appPMO/_backend/';
-  private token = 'ptFoqK9MMxcMrP9MJaWchsDpjGmtCVYRg5RX0xkaemRHEJcWpKejLlXxiaj4E6xl';
 
   constructor(private http: HttpClient, private toastr: NbToastrService) { }
 
-  dadosAPI(dados: any, api: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-      }),
-    };
+  private _backend: string = "https://g1a.com.br/appPMO/_backend/"
+  private _httpoptions: any = {
+    headers: new HttpHeaders({
+      'Authorization': 'ptFoqK9MMxcMrP9MJaWchsDpjGmtCVYRg5RX0xkaemRHEJcWpKejLlXxiaj4E6xl',
+      'Content-Type': 'application/json'
+    })
+  };
 
-    const url = this.server + api;
+  getAPI(path: string) {
 
-    return this.http.post(url, JSON.stringify(dados), httpOptions).pipe(
+    const url = this._backend + path;
+
+    return this.http.get(url, this._httpoptions).pipe(
       map((res: any) => res),
-      retry(3),
+      retry(1),
       timeout(5000),
       catchError((err: any): any => {
         if (err.name === 'TimeoutError') {
@@ -38,55 +39,18 @@ export class ApiService {
             'Estamos sem comunicação com o servidor de dados',
             'danger'
           );
+
+          console.log(err)
         }
       })
     );
   }
 
-  getAPI(table: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-         Authorization: this.token,
-      }),
-    };
+  postAPI(path: string, dados: any) {
 
-    const url = this.server + table;
+    const url = this._backend + path;
 
-    return this.http.get(url, httpOptions).pipe(
-      map((res: any) => res),
-      retry(3),
-      timeout(5000),
-      catchError((err: any): any => {
-        if (err.name === 'TimeoutError') {
-          this.showToast(
-            'Ops!',
-            'No momento o servidor de dados está com lentidão',
-            'danger'
-          );
-        } else {
-          this.showToast(
-            'Ops!',
-            'Estamos sem comunicação com o servidor de dados',
-            'danger'
-          );
-        }
-      })
-    );
-  }
-
-  postAPI(table: string, dados: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        Authorization: this.token,
-      }),
-      body: dados,
-    };
-
-    const url = this.server + table;
-
-    return this.http.post(url, httpOptions).pipe(
+    return this.http.post(url, JSON.stringify(dados), this._httpoptions).pipe(
       map((res: any) => res),
       retry(3),
       timeout(5000),
@@ -109,17 +73,10 @@ export class ApiService {
   }
 
   putAPI(api: string, dados: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        Authorization: this.token,
-      }),
-      body: dados,
-    };
 
-    const url = this.server + api;
+    const url = this._backend + api;
 
-    return this.http.put(url, httpOptions).pipe(
+    return this.http.put(url, JSON.stringify(dados), this._httpoptions).pipe(
       map((res: any) => res),
       retry(3),
       timeout(5000),
@@ -141,18 +98,11 @@ export class ApiService {
     );
   }
 
-  deleteAPI(dados: any, api: any) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        Authorization: this.token,
-      }),
-      body: dados,
-    };
+  deleteAPI(where: any, api: any) {
 
-    const url = this.server + api;
+    const url = this._backend + api + where;
 
-    return this.http.delete(url, httpOptions).pipe(
+    return this.http.delete(url, this._httpoptions).pipe(
       map((res: any) => res),
       retry(3),
       timeout(5000),

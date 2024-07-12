@@ -200,7 +200,7 @@ export class UsuariosComponent {
   onOptions(event: any) {
     if (event.action == 'edit') {
       // OPÇÃO PARA EDITAR
-      this.showDialog(event.data.id_user, 'PUT');
+      this.showDialog(event.data.id_usuario, 'PUT');
     }
   }
 
