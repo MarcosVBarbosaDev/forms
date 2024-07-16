@@ -35,7 +35,9 @@ import { ModalModule } from '../modal/modal.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyAccountComponent } from './my-account/my-account.component';
-import { UsuariosComponent,BtnStatusUsuarioComponent, } from './usuarios/usuarios.component';
+import { UsuariosComponent, BtnStatusUsuarioComponent, } from './usuarios/usuarios.component';
+import { FormulariosComponent, BtnStatusFormulariosComponent } from './formularios/formularios.component';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { UsuariosComponent,BtnStatusUsuarioComponent, } from './usuarios/usuario
     BtnStatusUsuarioComponent,
     MyAccountComponent,
     UsuariosComponent,
+    FormulariosComponent,
+    BtnStatusFormulariosComponent
   ],
   imports: [
     Angular2SmartTableModule,
@@ -80,4 +84,4 @@ import { UsuariosComponent,BtnStatusUsuarioComponent, } from './usuarios/usuario
   ],
   providers: [provideNgxMask()],
 })
-export class PagesModule {}
+export class PagesModule { }

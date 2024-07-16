@@ -1,0 +1,50 @@
+<div class="nb-card-modal">
+    <form class="row d-flex justify-content-center" [formGroup]="formulario" #validForm="ngForm" (ngSubmit)="onSubmit()"
+        aria-labelledby="title">
+        <nb-card class="col-lg-8 col-md-12 nb-card" [nbSpinner]="loading">
+            <nb-card-header>
+                <div class="row">
+                    <div class="col">
+                        Novo Formulário
+                    </div>
+                    <div class="col-2">
+                        <button type="button" nbButton status="danger" class="close float-end" (click)="close()"
+                            size="tiny">
+                            <nb-icon icon="close-outline"></nb-icon>
+                        </button>
+                    </div>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row mb-3">
+                    <label class="label mb-1" for="nome">Titulo: <span class="text-danger">*</span></label>
+                    <input type="text" nbInput fullWidth id="formulario" placeholder="Digite o Titulo completo"
+                        [status]="!formulario.controls['formulario'].valid ? 'danger' : 'basic'"
+                        formControlName="formulario" />
+                </div>
+                <div class="row mb-3">
+                    <label class="label mb-1" for="acesso">Acesso <span class="text-danger">*</span></label>
+                    <nb-option class="p-0" placeholder="Selecione o acesso" nbFilterInput fullWidth id="acesso"
+                        formControlName="acesso" multiple placeholder="Multiple Select" *ngFor="let options of option"
+                        [value]="option">
+                        {{ option }}
+                    </nb-option>
+                </div>
+
+                <div class="row mb-3 h-50">
+                    <label class="label mb-1" for="descricao">Descrição<span class="text-danger">*</span></label>
+                    <textarea id="descricao" formControlName="descricao" nbInput fullWidth
+                        [status]="!formulario.controls['descricao'].valid ? 'danger' : 'basic'" placeholder="Textarea"
+                        class="form-control h-100 "></textarea>
+                </div>
+            </nb-card-body>
+            <nb-card-footer class="d-flex justify-content-end px-4">
+                <div class="">
+                    <button nbButton status="primary" size="large" [disabled]="!validForm.valid">
+                        Salvar
+                    </button>
+                </div>
+            </nb-card-footer>
+        </nb-card>
+    </form>
+</div>

@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from 'src/app/auth-guard.service';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { FormulariosComponent } from './formularios/formularios.component';
 
 const title: string = 'PMO | ';
 
@@ -29,6 +30,11 @@ export const routes: Routes = [
         path: 'usuarios',
         title: title + 'Usuários',
         component: UsuariosComponent,
+      },
+      {
+        path: 'formularios',
+        title: title + 'Formulários',
+        component: FormulariosComponent,
       },
       {
         path: '**',
