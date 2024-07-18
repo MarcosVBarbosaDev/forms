@@ -36,7 +36,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { UsuariosComponent, BtnStatusUsuarioComponent, } from './usuarios/usuarios.component';
-import { FormulariosComponent, BtnStatusFormulariosComponent } from './formularios/formularios.component';
+import { FormulariosComponent, BtnPgtaFormulariosComponent } from './formularios/formularios.component';
 
 
 @NgModule({
@@ -50,7 +50,7 @@ import { FormulariosComponent, BtnStatusFormulariosComponent } from './formulari
     MyAccountComponent,
     UsuariosComponent,
     FormulariosComponent,
-    BtnStatusFormulariosComponent
+    BtnPgtaFormulariosComponent
   ],
   imports: [
     Angular2SmartTableModule,

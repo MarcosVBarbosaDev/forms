@@ -30,22 +30,84 @@ export class FormNovoFormularioComponent {
   method: string = "POST";
   @Input() id: number = 0;
 
-  public option:['marcos','luis','glauco']
+  public option: ['marcos', 'luis', 'glauco']
 
   public formulario: FormGroup = this._formBuilder.group({
     id_formulario: [this.id, [Validators.required]],
     formulario: [null, [Validators.required]],
     descricao: [null, [Validators.required]],
-    acesso: [null, [Validators.required]],
+    acesso: ["TODOS", [Validators.required]],
   });
 
 
   onSubmit() {
+    this.loading = true;
 
+    let dados = this.formulario.value
+
+    if (this.method == 'POST') {
+
+      this._provider.postAPI(this.table, dados).subscribe(
+        (data: any) => {
+          if (data['status'] == 'success') {
+            this._provider.showToast('OBA!', data['result'], 'success');
+          } else {
+            this._provider.showToast('OPS!', data['result'], 'danger');
+          }
+        },
+        (error: any) => {
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+          this._dialogRef.close('update');
+        }
+      );
+    } else {
+      this._provider.putAPI(this.table, dados).subscribe(
+        (data: any) => {
+          if (data['status'] == 'success') {
+            this._provider.showToast('OBA!', data['result'], 'success');
+          } else {
+            this._provider.showToast('OPS!', data['result'], 'danger');
+          }
+        },
+        (error: any) => {
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+          this._dialogRef.close('update');
+        }
+      );
+    }
   }
 
-  setForm(id: any) {
+  setForm(id: number) {
+    this.loading = true;
 
+    let path = 'formularios/?id=' + id;
+
+    return this._provider.getAPI(path).subscribe((data) => {
+      //CARREGA DADOS NO FORMULÁRIO
+      if (data['status'] === 'success') {
+        this.formulario.patchValue({
+          id_formulario: data['result']['id_formulario'],
+          formulario: data['result']['formulario'],
+          descricao: data['result']['descricao'],
+          acesso: data['result']['acesso'],
+        })
+      } else {
+        this._provider.showToast('OPS!', data['result'], 'danger');
+      }
+    },
+      (error: any) => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      }
+    );
   }
 
   close() {

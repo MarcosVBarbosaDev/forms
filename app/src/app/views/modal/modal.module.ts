@@ -21,9 +21,11 @@ import {
 import { FormUserComponent } from './form-user/form-user.component';
 import { FormResetPasswordComponent } from './form-reset-password/form-reset-password.component';
 import { FormNovoFormularioComponent } from './form-novo-formulario/form-novo-formulario.component';
+import { FormPerguntasComponent } from './form-perguntas/form-perguntas.component';
+import { ListaPerguntasComponent } from './lista-perguntas/lista-perguntas.component';
 
 @NgModule({
-  declarations: [FormUserComponent, FormResetPasswordComponent, FormNovoFormularioComponent],
+  declarations: [FormUserComponent, FormResetPasswordComponent, FormNovoFormularioComponent, FormPerguntasComponent, ListaPerguntasComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

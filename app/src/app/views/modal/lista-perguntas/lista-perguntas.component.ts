@@ -4,48 +4,15 @@ import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme
 import { ApiService } from 'src/app/services/api.service';
 
 import { IColumnType, LocalDataSource, Settings } from 'angular2-smart-table';
+import { FormUserComponent } from '../../modal/form-user/form-user.component';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
-import { FormNovoFormularioComponent } from '../../modal/form-novo-formulario/form-novo-formulario.component';
 
 @Component({
-  template: `
-  <div class="example-items-rows">
-  <button nbButton shape="round" (click)="onContatos()" outline nbPopover="Contatos" nbPopoverTrigger="hover" nbPopoverPlacement="left" status="primary" size="small"><nb-icon icon="file-text-outline"></nb-icon> </button>
-  <button nbButton shape="round" (click)="onContatos()" outline nbPopover="Contatos" nbPopoverTrigger="hover" nbPopoverPlacement="left" status="success" size="small"><nb-icon icon="checkmark-circle-outline"></nb-icon> </button>
-  </div>
-  `,
-  styleUrls: ['./formularios.component.scss']
+  selector: 'app-lista-perguntas',
+  templateUrl: './lista-perguntas.component.html',
+  styleUrls: ['./lista-perguntas.component.scss']
 })
-export class BtnPgtaFormulariosComponent implements OnInit {
-  @Input() rowData: any;
-
-  constructor(
-    private _dialogService: NbDialogService,
-  ) { }
-
-  ngOnInit(): void {
-
-  }
-
-  onContatos() {
-    this._dialogService.open(FormNovoFormularioComponent, {
-      context: {
-        id: 1,
-      },
-      closeOnEsc: true,
-      hasBackdrop: true,
-      closeOnBackdropClick: false,
-      hasScroll: true
-    });
-  }
-}
-
-@Component({
-  selector: 'app-formularios',
-  templateUrl: './formularios.component.html',
-  styleUrls: ['./formularios.component.scss']
-})
-export class FormulariosComponent {
+export class ListaPerguntasComponent {
 
   public source: LocalDataSource = new LocalDataSource();
   public loading: boolean = false;
@@ -81,23 +48,15 @@ export class FormulariosComponent {
       ],
     },
     columns: {
-      formulario: {
+      usuario: {
         width: '60%',
-        title: 'Titulo',
+        title: 'Usuario',
         sortDirection: 'asc',
       },
-      data_format: {
+      email: {
         width: '30%',
-        title: 'Data',
-      },
-      ativo: {
-        title: '',
-        width: '10%',
-        type: IColumnType.Custom,
-        sortDirection: 'desc',
-        renderComponent: BtnPgtaFormulariosComponent,
-        filter: false,
-      },
+        title: 'email',
+      }
     },
   };
 
@@ -115,7 +74,7 @@ export class FormulariosComponent {
     this.loading = true;
     this.source = new LocalDataSource();
 
-    let url = 'formularios/';
+    let url = 'usuarios/';
 
     return this._provider.getAPI(url).subscribe(
       (data) => {
@@ -139,7 +98,7 @@ export class FormulariosComponent {
   onOptions(event: any) {
     if (event.action == 'edit') {
       // OPÇÃO PARA EDITAR
-      this.showDialog(event.data.id_formulario, 'PUT');
+      this.showDialog(event.data.id_usuario, 'PUT');
     }
   }
 
@@ -147,9 +106,10 @@ export class FormulariosComponent {
 
   showDialog(id: number, metodo: string) {
     this._dialogService
-      .open(FormNovoFormularioComponent, {
+      .open(FormUserComponent, {
         context: {
           id: id,
+          metodo: metodo,
         },
         closeOnEsc: true,
         hasBackdrop: true,
@@ -159,5 +119,5 @@ export class FormulariosComponent {
       .onClose.subscribe((update) => update && this.getDados());
   }
 
-
 }
+

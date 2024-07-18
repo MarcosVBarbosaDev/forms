@@ -1,6 +1,6 @@
 <nb-card nbSpinnerStatus="primary" nbSpinnerSize="large" class="h-100">
     <nb-card-header>
-        FORMULÁRIOS
+        COLABORADORES
         <nb-button-group style="float:right" status="basic" size="small" filled>
             <button nbButton (click)="getDados()" nbPopover="Atualizar">
                 <nb-icon icon="refresh-outline"></nb-icon>
@@ -9,6 +9,6 @@
     </nb-card-header>
     <nb-card-body>
         <angular2-smart-table [nbSpinner]="loading" [settings]="settings" [source]="source"
-            (create)="showDialog(0,'POST')" ></angular2-smart-table>
+            (create)="showDialog(0,'POST')" (custom)="onOptions($event)"></angular2-smart-table>
     </nb-card-body>
 </nb-card>

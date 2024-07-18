@@ -22,15 +22,6 @@
                         [status]="!formulario.controls['formulario'].valid ? 'danger' : 'basic'"
                         formControlName="formulario" />
                 </div>
-                <div class="row mb-3">
-                    <label class="label mb-1" for="acesso">Acesso <span class="text-danger">*</span></label>
-                    <nb-option class="p-0" placeholder="Selecione o acesso" nbFilterInput fullWidth id="acesso"
-                        formControlName="acesso" multiple placeholder="Multiple Select" *ngFor="let options of option"
-                        [value]="option">
-                        {{ option }}
-                    </nb-option>
-                </div>
-
                 <div class="row mb-3 h-50">
                     <label class="label mb-1" for="descricao">Descrição<span class="text-danger">*</span></label>
                     <textarea id="descricao" formControlName="descricao" nbInput fullWidth
