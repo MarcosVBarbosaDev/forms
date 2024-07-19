@@ -1,16 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
 
 import { ApiService } from 'src/app/services/api.service';
 
 import { IColumnType, LocalDataSource, Settings } from 'angular2-smart-table';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
+import { ListaPerguntasComponent } from '../../modal/lista-perguntas/lista-perguntas.component';
 import { FormNovoFormularioComponent } from '../../modal/form-novo-formulario/form-novo-formulario.component';
 
 @Component({
   template: `
   <div class="example-items-rows">
-  <button nbButton shape="round" (click)="onContatos()" outline nbPopover="Contatos" nbPopoverTrigger="hover" nbPopoverPlacement="left" status="primary" size="small"><nb-icon icon="file-text-outline"></nb-icon> </button>
+  <button nbButton shape="round" (click)="openListPerguntas()" outline nbPopover="Adicionar pergunta ao Formularios" nbPopoverTrigger="hover" nbPopoverPlacement="left" status="primary" size="small"><nb-icon icon="file-text-outline"></nb-icon> </button>
   <button nbButton shape="round" (click)="onContatos()" outline nbPopover="Contatos" nbPopoverTrigger="hover" nbPopoverPlacement="left" status="success" size="small"><nb-icon icon="checkmark-circle-outline"></nb-icon> </button>
   </div>
   `,
@@ -27,10 +28,13 @@ export class BtnPgtaFormulariosComponent implements OnInit {
 
   }
 
-  onContatos() {
-    this._dialogService.open(FormNovoFormularioComponent, {
+  onContatos() { }
+
+  openListPerguntas() {
+    this._dialogService.open(ListaPerguntasComponent, {
       context: {
-        id: 1,
+        id: this.rowData.id_formulario,
+        titulo: this.rowData.formulario,
       },
       closeOnEsc: true,
       hasBackdrop: true,
@@ -51,6 +55,7 @@ export class FormulariosComponent {
   public loading: boolean = false;
 
   @Input() rowData: any;
+
 
   settings: Settings = {
     mode: 'external',
@@ -103,7 +108,7 @@ export class FormulariosComponent {
 
   constructor(
     private _provider: ApiService,
-    private _dialogService: NbDialogService
+    private _dialogService: NbDialogService,
   ) {
     // CARREGAR DADOS NA TABELA
     this.getDados();

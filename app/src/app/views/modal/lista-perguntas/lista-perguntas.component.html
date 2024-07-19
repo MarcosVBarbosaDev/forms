@@ -1,9 +1,12 @@
-<nb-card nbSpinnerStatus="primary" nbSpinnerSize="large" class="h-100">
+<nb-card class="nb-card-modal " nbSpinnerStatus="primary" nbSpinnerSize="giant">
     <nb-card-header>
-        COLABORADORES
+        Perguntas Formulário {{titulo}}
         <nb-button-group style="float:right" status="basic" size="small" filled>
-            <button nbButton (click)="getDados()" nbPopover="Atualizar">
+            <button nbButton (click)="getDados(this.id)" nbPopover="Atualizar">
                 <nb-icon icon="refresh-outline"></nb-icon>
+            </button>
+            <button type="button" nbButton status="danger" class="close float-end" (click)="close()" size="tiny">
+                <nb-icon icon="close-outline"></nb-icon>
             </button>
         </nb-button-group>
     </nb-card-header>

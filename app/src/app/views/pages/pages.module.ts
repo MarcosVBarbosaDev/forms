@@ -38,7 +38,6 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { UsuariosComponent, BtnStatusUsuarioComponent, } from './usuarios/usuarios.component';
 import { FormulariosComponent, BtnPgtaFormulariosComponent } from './formularios/formularios.component';
 
-
 @NgModule({
   declarations: [
     HomeComponent,
@@ -50,7 +49,7 @@ import { FormulariosComponent, BtnPgtaFormulariosComponent } from './formularios
     MyAccountComponent,
     UsuariosComponent,
     FormulariosComponent,
-    BtnPgtaFormulariosComponent
+    BtnPgtaFormulariosComponent,
   ],
   imports: [
     Angular2SmartTableModule,

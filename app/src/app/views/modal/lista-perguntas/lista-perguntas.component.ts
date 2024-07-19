@@ -1,11 +1,90 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
 
 import { ApiService } from 'src/app/services/api.service';
 
 import { IColumnType, LocalDataSource, Settings } from 'angular2-smart-table';
-import { FormUserComponent } from '../../modal/form-user/form-user.component';
-import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
+import { FormPerguntasComponent } from '../form-perguntas/form-perguntas.component';
+
+
+@Component({
+  template: `
+    <div class="example-items-rows">
+      <nb-toggle
+        [checked]="rowData.obrigatorio == 1 ? true : false"
+        (checkedChange)="onSwitch($event)"
+        [status]="color"
+          [disabled]="toggleDisabled"
+      ></nb-toggle>
+    </div>
+  `,
+  styleUrls: ['./lista-perguntas.component.scss']
+})
+export class BtnStatusObrigatorioComponent implements OnInit {
+  @Input() rowData: any;
+  public table: string = 'rl_formularios_componentes/';
+  public color: any;
+  public status: any;
+  public toggleDisabled: boolean = false;
+  public user: any;
+
+  constructor(
+    private _provider: ApiService,
+    private _listPergunta: ListaPerguntasComponent,
+    private _toastrService: NbToastrService,
+    private _themeService: NbThemeService,
+  ) { }
+
+  ngOnInit(): void {
+    this._themeService.onThemeChange();
+
+    if (this.rowData.obrigatorio == 1) {
+      this.color = 'info';
+    } else {
+      this.color = 'danger';
+    }
+  }
+
+  onSwitch(event: any) {
+
+    this._listPergunta.loading = true;
+
+    if (event) {
+      this.rowData.ativo = 1;
+      this.color = 'info';
+    } else {
+      this.rowData.ativo = 0;
+      this.color = 'danger';
+    }
+
+    let dados = {
+      id_rl_formulario_componente: this.rowData.id_rl_formulario_componente,
+      obrigatorio: this.rowData.ativo
+    }
+
+    this._provider.putAPI(this.table, dados).subscribe(
+      (data: any) => {
+        if (data['status'] == 'success') {
+          this._toastrService.show(data['status'], 'Oba!', {
+            status: 'success',
+            duration: 8000,
+          });
+        } else {
+          this._toastrService.show(data['status'], 'Ops!', {
+            status: 'danger',
+            duration: 8000,
+          });
+        }
+      },
+      (error: any) => {
+        this._listPergunta.loading = false;
+      },
+      () => {
+        this._listPergunta.loading = false;
+      }
+    );
+  }
+}
 
 @Component({
   selector: 'app-lista-perguntas',
@@ -17,7 +96,16 @@ export class ListaPerguntasComponent {
   public source: LocalDataSource = new LocalDataSource();
   public loading: boolean = false;
 
-  @Input() rowData: any;
+  @Input() id: any;
+  @Input() titulo: any;
+
+
+  ngOnInit(): void {
+    // CARREGAR DADOS NA TABELA
+    if (this.id) {
+      this.getDados(this.id);
+    }
+  }
 
   settings: Settings = {
     mode: 'external',
@@ -48,40 +136,47 @@ export class ListaPerguntasComponent {
       ],
     },
     columns: {
-      usuario: {
-        width: '60%',
-        title: 'Usuario',
+      label: {
+        width: '80%',
+        title: 'Pergunta',
         sortDirection: 'asc',
       },
-      email: {
-        width: '30%',
-        title: 'email',
-      }
+      componente: {
+        width: '13%',
+        title: 'Tipo de respota',
+      },
+      ativo: {
+        title: 'Obrigatório',
+        width: '7%',
+        type: IColumnType.Custom,
+        renderComponent: BtnStatusObrigatorioComponent,
+        filter: false,
+      },
     },
   };
 
   constructor(
     private _provider: ApiService,
-    private _dialogService: NbDialogService
+    private _dialogService: NbDialogService,
+    protected _dialogRef: NbDialogRef<''>
   ) {
-    // CARREGAR DADOS NA TABELA
-    this.getDados();
+
   }
 
   expDados() { }
 
-  getDados() {
+  getDados(id: any) {
+
     this.loading = true;
     this.source = new LocalDataSource();
 
-    let url = 'usuarios/';
+    let url = 'formularios/?id=' + id;
 
     return this._provider.getAPI(url).subscribe(
       (data) => {
         // CARREGAR DADOS NA TABELA
         if (data['status'] === 'success') {
-          // this.status(data['result']);F
-          this.source.load(data['result']);
+          this.source.load(data['result']['componentes']);
         } else {
           this.loading = false;
         }
@@ -102,13 +197,12 @@ export class ListaPerguntasComponent {
     }
   }
 
-  ngOnInit(): void { }
-
   showDialog(id: number, metodo: string) {
     this._dialogService
-      .open(FormUserComponent, {
+      .open(FormPerguntasComponent, {
         context: {
           id: id,
+          id_formulario: this.id,
           metodo: metodo,
         },
         closeOnEsc: true,
@@ -116,7 +210,11 @@ export class ListaPerguntasComponent {
         closeOnBackdropClick: false,
         hasScroll: true,
       })
-      .onClose.subscribe((update) => update && this.getDados());
+      .onClose.subscribe((update) => update && this.getDados(this.id));
+  }
+
+  close() {
+    this._dialogRef.close();
   }
 
 }

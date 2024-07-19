@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NbAlertModule,
   NbAutocompleteModule,
+  NbButtonGroupModule,
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
@@ -22,11 +23,13 @@ import { FormUserComponent } from './form-user/form-user.component';
 import { FormResetPasswordComponent } from './form-reset-password/form-reset-password.component';
 import { FormNovoFormularioComponent } from './form-novo-formulario/form-novo-formulario.component';
 import { FormPerguntasComponent } from './form-perguntas/form-perguntas.component';
-import { ListaPerguntasComponent } from './lista-perguntas/lista-perguntas.component';
+import { BtnStatusObrigatorioComponent, ListaPerguntasComponent } from './lista-perguntas/lista-perguntas.component';
+import { Angular2SmartTableModule } from 'angular2-smart-table';
 
 @NgModule({
-  declarations: [FormUserComponent, FormResetPasswordComponent, FormNovoFormularioComponent, FormPerguntasComponent, ListaPerguntasComponent],
+  declarations: [FormUserComponent, FormResetPasswordComponent, FormNovoFormularioComponent, FormPerguntasComponent, ListaPerguntasComponent,BtnStatusObrigatorioComponent],
   imports: [
+    Angular2SmartTableModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
@@ -36,6 +39,7 @@ import { ListaPerguntasComponent } from './lista-perguntas/lista-perguntas.compo
     NbCheckboxModule,
     NbFormFieldModule,
     NbIconModule,
+    NbButtonGroupModule,
     NbInputModule,
     NbListModule,
     NbSelectModule,
@@ -43,7 +47,7 @@ import { ListaPerguntasComponent } from './lista-perguntas/lista-perguntas.compo
     NbTabsetModule,
     NbToggleModule,
     NbTooltipModule,
-    NbAlertModule
+    NbAlertModule,
   ],
   exports: [],
   providers: [],

@@ -1,1 +1,36 @@
-<p>form-perguntas works!</p>
+<form [formGroup]="formulario" #validForm="ngForm" (ngSubmit)="onSubmit()" aria-labelledby="title">
+    <nb-card class="col-sm-12 nb-card-modal-sm" [nbSpinner]="loading">
+        <nb-card-header>
+            <div class="row">
+                <div class="col">
+                    Adicionar Pergunta
+                </div>
+                <div class="col-auto">
+                    <button type="button" nbButton status="danger" class="close float-end" (click)="close()"
+                        size="tiny">
+                        <nb-icon icon="close-outline"></nb-icon>
+                    </button>
+                </div>
+            </div>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="col-12">
+                <label class="label" for="label">Pergunta: <span class="text-danger">*</span></label>
+                <textarea class="h-100" nbInput fullWidth id="label" placeholder="Digite a pergunta completa"
+                    [status]="!formulario.controls['label'].valid ? 'danger' : 'basic'"
+                    formControlName="label"></textarea>
+            </div>
+            <div class="col-3">
+                <label class="label" for="tipo">Tipo de Resposta: <span class="text-danger">*</span></label>
+                <nb-select placeholder="Selecione um Tipo" formControlName="tipo"  [status]="!formulario.controls['tipo'].valid ? 'danger' : 'basic'">
+                    <nb-option *ngFor="let item of items" [value]="item.value">{{ item.title }}</nb-option>
+                </nb-select>
+            </div>
+        </nb-card-body>
+        <nb-card-footer class="d-flex justify-content-end px-4">
+            <button nbButton status="primary" size="large" [disabled]="!validForm.valid">
+                Salvar
+            </button>
+        </nb-card-footer>
+    </nb-card>
+</form>

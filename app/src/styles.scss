@@ -40,6 +40,14 @@ nb-layout .layout .layout-container .content .columns nb-layout-column {
   margin: 0;
 }
 
+.nb-card-modal-sm {
+  min-width: 50vw !important;
+  max-width: 55vw !important;
+  // min-height: 30vw !important;
+  // max-height: 35vw !important;
+  margin: 0;
+}
+
 .custom-auth-block {
   max-width: 1500px;
   /* Defina a largura máxima desejada */
