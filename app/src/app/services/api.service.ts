@@ -10,7 +10,7 @@ export class ApiService {
 
   constructor(private http: HttpClient, private toastr: NbToastrService) { }
 
-  private _backend: string = "https://g1a.com.br/appPMO/_backend/"
+  private _backend: string = "https://pmoassessoria.com.br/painel-app/_backend/"
   private _httpoptions: any = {
     headers: new HttpHeaders({
       'Authorization': 'ptFoqK9MMxcMrP9MJaWchsDpjGmtCVYRg5RX0xkaemRHEJcWpKejLlXxiaj4E6xl',

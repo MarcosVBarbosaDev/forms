@@ -52,7 +52,7 @@ const formSetting: any = {
             class: NbAuthJWTToken,
             key: 'token',
           },
-          baseEndpoint: 'https://g1a.com.br/appPMO/_backend',
+          baseEndpoint: 'https://pmoassessoria.com.br/painel-app/_backend',
           login: {
             endpoint: '/autenticacao/acessar/',
             method: 'post',
@@ -92,7 +92,7 @@ const formSetting: any = {
     HttpClientModule,
     PagesModule,
     NgxAuthModule,
-    
+
   ],
   providers: [
     ApiService,
@@ -103,4 +103,4 @@ const formSetting: any = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
