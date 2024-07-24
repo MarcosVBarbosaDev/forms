@@ -1,8 +1,9 @@
 {
     "/api": {
-        "target": "https://localhost",
-        "secure": false,
-        "changeOrigin": true,
-        "logLevel": "debug"
+      "target": "https://pmoassessoria.com.br",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
     }
-}
+  }
+  

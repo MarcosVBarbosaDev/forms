@@ -76,7 +76,7 @@ const formSetting: any = {
           requestPass: {
             endpoint: '/autenticacao/solicitar-nova-senha/',
             redirect: {
-              success: '/autenticacao/login/',
+              success: '/',
               failure: null,
             },
             defaultErrors: ['Usuário não encontrado! Tente novamente.'],

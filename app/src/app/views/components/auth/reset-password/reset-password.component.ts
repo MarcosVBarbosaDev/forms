@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbAuthService, NbResetPasswordComponent } from '@nebular/auth';
 import { ApiService } from 'src/app/services/api.service';
+import * as CryptoJS from 'crypto-js';
 
 // Interface para definir o formato das configurações de validação de senha
 interface PasswordValidationConfig {
@@ -24,7 +25,7 @@ export class NgxResetPasswordComponent extends NbResetPasswordComponent implemen
   override messages: string[];
   override user: any = {};
   public table: string = 'autenticacao/redefinir-senha/';
-  public token_reset_senha: any = '';
+  public ref: any = '';
 
   constructor(
     service: NbAuthService,
@@ -38,14 +39,19 @@ export class NgxResetPasswordComponent extends NbResetPasswordComponent implemen
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.token_reset_senha = params['token_reset_senha'];
+      this.ref = params['ref'];
     });
+  }
+
+  // Função para calcular o hash SHA-256 de uma string
+  calcularHashSHA256(input: string): string {
+    return CryptoJS.SHA256(input).toString(CryptoJS.enc.Hex);
   }
 
   // Método para redefinir a senha (manipulador ngSubmit)
   override resetPass() {
     // Verificar se os dados necessários estão presentes
-    if (!this.user.senha || !this.token_reset_senha) {
+    if (!this.user.senha || !this.ref) {
       // Exibir mensagem de erro ou tratar de outra forma
 
       return;
@@ -53,10 +59,8 @@ export class NgxResetPasswordComponent extends NbResetPasswordComponent implemen
 
     // Montar os dados a serem enviados na requisição PUT
     let dados = {
-      form: {
-        nova_senha: this.user.senha,
-        token_reset_senha: this.token_reset_senha
-      }
+      nova_senha: this.calcularHashSHA256(this.user.senha),
+      ref: this.ref
     };
 
     this._provider.putAPI(this.table, dados).subscribe((data: any) => {
@@ -77,7 +81,6 @@ export class NgxResetPasswordComponent extends NbResetPasswordComponent implemen
       }
     );
   }
-
 
 
   // Método de exemplo para obter valor de configuração
