@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 
 import { ApiService } from 'src/app/services/api.service';
 
@@ -13,8 +13,8 @@ import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
       <nb-toggle
         [checked]="rowData.ativo == 1 ? true : false"
         (checkedChange)="onSwitch($event)"
-        [status]="color"
-          [disabled]="toggleDisabled"
+        [status]="rowData.ativo == 1 ? 'info' : 'danger'"
+          [disabled]="user.user_id == rowData.id_usuario"
       ></nb-toggle>
     </div>
   `,
@@ -23,22 +23,14 @@ import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 export class BtnStatusUsuarioComponent implements OnInit {
   @Input() rowData: any;
   public table: string = 'usuarios/';
-  public color: any;
-  public status: any;
-  public toggleDisabled: boolean = false;
   public user: any;
 
   constructor(
     private _provider: ApiService,
     private _usuarios: UsuariosComponent,
     private _toastrService: NbToastrService,
-    private _themeService: NbThemeService,
     private _authService: NbAuthService,
-  ) { }
-
-  ngOnInit(): void {
-    this._themeService.onThemeChange();
-
+  ) {
     this._authService
       .onTokenChange()
       .subscribe((token: NbAuthJWTToken | any) => {
@@ -46,45 +38,30 @@ export class BtnStatusUsuarioComponent implements OnInit {
           this.user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable
         }
       });
+   }
 
-    if (this.rowData.ativo == 1) {
-      this.color = 'info';
-    } else {
-      this.color = 'danger';
-    }
+  ngOnInit(): void {
 
-    if (this.user.user_id == this.rowData.id_usuario) {
-      // Bloqueia interação com o toggle
-      this.toggleDisabled = true;
-    }
   }
 
   onSwitch(event: any) {
 
     this._usuarios.loading = true;
 
-    if (event) {
-      this.rowData.ativo = 1;
-      this.color = 'info';
-    } else {
-      this.rowData.ativo = 0;
-      this.color = 'danger';
-    }
-
     let dados = {
       id_usuario: this.rowData.id_usuario,
-      ativo: this.rowData.ativo
+      ativo: event
     }
 
     this._provider.putAPI(this.table, dados).subscribe(
       (data: any) => {
         if (data['status'] == 'success') {
-          this._toastrService.show(data['status'], 'Oba!', {
+          this._toastrService.show(data['result'], 'Oba!', {
             status: 'success',
             duration: 8000,
           });
         } else {
-          this._toastrService.show(data['status'], 'Ops!', {
+          this._toastrService.show(data['result'], 'Ops!', {
             status: 'danger',
             duration: 8000,
           });
@@ -95,6 +72,7 @@ export class BtnStatusUsuarioComponent implements OnInit {
       },
       () => {
         this._usuarios.loading = false;
+        this._usuarios.getDados()
       }
     );
   }

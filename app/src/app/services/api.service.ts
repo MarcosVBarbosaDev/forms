@@ -98,9 +98,9 @@ export class ApiService {
     );
   }
 
-  deleteAPI(where: any, api: any) {
+  deleteAPI(path: any) {
 
-    const url = this._backend + api + where;
+    const url = this._backend + path;
 
     return this.http.delete(url, this._httpoptions).pipe(
       map((res: any) => res),

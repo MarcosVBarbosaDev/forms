@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
+import { sha256 } from 'js-sha256';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class FormUserComponent {
     id_usuario: [this.id, [Validators.required]],
     email: [null, [Validators.required]],
     usuario: [null, [Validators.required]],
+    senha: [null, [Validators.minLength(4)]],
     acesso: [null, [Validators.required]],
   });
 
@@ -37,8 +39,13 @@ export class FormUserComponent {
   }
 
   onSubmit() {
-    this.loading = true;
+    // this.loading = true;
 
+    if (this.formulario.controls['senha'].value != '' && this.formulario.controls['senha'].value != null) {
+      this.formulario.patchValue({
+        senha: sha256(this.formulario.controls['senha'].value)
+      })
+    }
     let dados = this.formulario.value
 
     if (this.metodo == 'POST') {

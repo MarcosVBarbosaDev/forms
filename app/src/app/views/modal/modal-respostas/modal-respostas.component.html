@@ -1,0 +1,32 @@
+<!-- <div class="nb-card-modal"> -->
+<nb-card class="col-6 mx-auto" [nbSpinner]="loading">
+    <nb-card-header>
+        <div class="row">
+            <div class="col">
+                {{ formulario }}<br>
+                <span style="font-size: .75rem">{{ usuario }}</span>
+            </div>
+            <div class="col-2">
+                <button type="button" nbButton status="danger" class="close float-end" (click)="close()" size="tiny">
+                    <nb-icon icon="close-outline"></nb-icon>
+                </button>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12 mb-3" *ngFor="let componente of componentes">
+                <label class="label">{{ componente.label }}: </label>
+                <input nbInput fullWidth [value]="componente.value" disabled>
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end px-4">
+        <div class="">
+            <button nbButton status="danger" (click)="close()">
+                Fechar
+            </button>
+        </div>
+    </nb-card-footer>
+</nb-card>
+<!-- </div> -->

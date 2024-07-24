@@ -1,0 +1,17 @@
+<div class="nb-card-modal">
+    <nb-card nbSpinnerStatus="primary" nbSpinnerSize="large" size="giant">
+        <nb-card-header>
+            {{ titulo }}<br>
+            <span style="font-size: 0.75rem;">Lista de respostas</span>
+            <nb-button-group class="float-end" status="danger" size="tiny" filled>
+                <button nbButton (click)="close()" nbPopover="Fechar">
+                    <nb-icon icon="close-outline"></nb-icon>
+                </button>
+            </nb-button-group>
+        </nb-card-header>
+        <nb-card-body>
+            <angular2-smart-table [nbSpinner]="loading" [settings]="settings" [source]="source"
+                (custom)="onOptions($event)"></angular2-smart-table>
+        </nb-card-body>
+    </nb-card>
+</div>

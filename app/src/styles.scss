@@ -98,7 +98,7 @@ angular2-smart-table th.angular2-smart-actions-title-add a {
 }
 
 .angular2-smart-actions {
-
+  width: 120px !important;
   angular2-st-tbody-edit-delete,
   angular2-st-tbody-create-cancel,
   angular2-st-actions,
@@ -117,7 +117,6 @@ angular2-smart-table .angular2-smart-actions a.angular2-smart-action {
   font-size: 1.2rem !important;
   color: var(--text-primary-color);
 }
-
 // .nb-theme-default angular2-smart-table .angular2-smart-actions a.angular2-smart-action {
 //   color: var(--color-text-primary);
 // }

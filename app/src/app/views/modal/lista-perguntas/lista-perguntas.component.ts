@@ -98,6 +98,7 @@ export class ListaPerguntasComponent {
 
   @Input() id: any;
   @Input() titulo: any;
+  isOptions: boolean = false;
 
 
   ngOnInit(): void {
@@ -131,15 +132,24 @@ export class ListaPerguntasComponent {
       custom: [
         {
           name: 'edit',
-          title: '<i class="bi bi-pencil"></i> ',
+          title: '<i class="bi bi-pencil"></i>',
+        },
+        {
+          name: 'remove',
+          title: '<i class="bi bi-trash"></i>',
         },
       ],
     },
     columns: {
+      ordem: {
+        width: '180px',
+        title: 'Ordem',
+        sortDirection: 'asc',
+        classContent: 'text-center'
+      },
       label: {
         width: '80%',
         title: 'Pergunta',
-        sortDirection: 'asc',
       },
       componente: {
         width: '13%',
@@ -162,8 +172,6 @@ export class ListaPerguntasComponent {
   ) {
 
   }
-
-  expDados() { }
 
   getDados(id: any) {
 
@@ -190,10 +198,75 @@ export class ListaPerguntasComponent {
     );
   }
 
+  delete_rl_formulario_componente(id: any) {
+    this.loading = true;
+    this.source = new LocalDataSource();
+
+    let dados = {
+      id: id
+    }
+
+    let url = "rl_formularios_componentes/?id=" + id;
+
+    return this._provider.deleteAPI(url).subscribe(
+      (data) => {
+        // CARREGAR DADOS NA TABELA
+        if (data['status'] === 'success') {
+          this.source.load(data['result']['componentes']);
+        } else {
+          this.loading = false;
+        }
+      },
+      (error: any) => {
+        this.loading = false;
+      },
+      () => {
+        this.getDados(this.id);
+        this.loading = false;
+      }
+    );
+  }
+
+  delete_rl_componentes_opcoes(id: any) {
+    this.loading = true;
+    this.source = new LocalDataSource();
+
+    let dados = {
+      id: id
+    }
+
+    let url = "rl_componentes_opcoes/?id=" + id;
+
+    return this._provider.deleteAPI(url).subscribe(
+      (data) => {
+        // CARREGAR DADOS NA TABELA
+        if (data['status'] === 'success') {
+          this.source.load(data['result']['componentes']);
+        } else {
+          this.loading = false;
+        }
+      },
+      (error: any) => {
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      }
+    );
+  }
+
   onOptions(event: any) {
     if (event.action == 'edit') {
-      // OPÇÃO PARA EDITAR
-      this.showDialog(event.data.id_usuario, 'PUT');
+      this.showDialog(event.data.id_rl_formulario_componente, 'PUT');
+    } else if (event.action == 'remove') {
+
+      this.delete_rl_formulario_componente(event.data.id_rl_formulario_componente);
+
+      this.isOptions = event.data.id_componente == 3 || event.data.id_componente == 4 || event.data.id_componente == 5;
+
+      if (this.isOptions) {
+        this.delete_rl_componentes_opcoes(event.data.id_rl_formulario_componente);
+      }
     }
   }
 

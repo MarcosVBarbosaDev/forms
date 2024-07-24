@@ -15,6 +15,7 @@ import {
   NbSelectModule,
   NbSpinnerModule,
   NbTabsetModule,
+  NbTagModule,
   NbToggleModule,
   NbTooltipModule,
 } from '@nebular/theme';
@@ -25,12 +26,14 @@ import { FormNovoFormularioComponent } from './form-novo-formulario/form-novo-fo
 import { FormPerguntasComponent } from './form-perguntas/form-perguntas.component';
 import { BtnStatusObrigatorioComponent, ListaPerguntasComponent } from './lista-perguntas/lista-perguntas.component';
 import { Angular2SmartTableModule } from 'angular2-smart-table';
+import { ModalRespostasComponent } from './modal-respostas/modal-respostas.component';
 
 @NgModule({
-  declarations: [FormUserComponent, FormResetPasswordComponent, FormNovoFormularioComponent, FormPerguntasComponent, ListaPerguntasComponent,BtnStatusObrigatorioComponent],
+  declarations: [FormUserComponent, FormResetPasswordComponent, FormNovoFormularioComponent, FormPerguntasComponent, ListaPerguntasComponent, BtnStatusObrigatorioComponent, ModalRespostasComponent],
   imports: [
     Angular2SmartTableModule,
     CommonModule,
+    NbTagModule,
     ReactiveFormsModule,
     FormsModule,
     NbAutocompleteModule,

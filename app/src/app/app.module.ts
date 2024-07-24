@@ -24,6 +24,8 @@ import { AuthGuard } from './auth-guard.service';
 
 import { NgxAuthModule } from './views/components/auth/auth.module';
 import { TokenInterceptor } from './services/token-interceptor.service';
+import { ModalModule } from './views/modal/modal.module';
+
 registerLocaleData(localePt);
 
 const formSetting: any = {
@@ -90,6 +92,7 @@ const formSetting: any = {
       },
     }),
     HttpClientModule,
+    ModalModule,
     PagesModule,
     NgxAuthModule,
 

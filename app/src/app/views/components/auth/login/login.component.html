@@ -1,11 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-5 col-md-10 mx-auto">
+    <div class="col-md-6 mx-auto">
       <p class="text-center mb-3">
-        <img src="/assets/images/logo-blue.png" width="250" />
+        <img src="assets/images/logo-site.webp" class="img-fluid" />
       </p>
     </div>
-    <div class="col-lg-5 col-md-10 mx-auto">
+  </div>
+  <div class="row">
+    <div class="col-md-6 mx-auto">
       <p class="sub-title">Informe suas credenciais de acesso</p>
 
       <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
@@ -49,8 +51,8 @@
 
         <div class="form-group mb-3">
           <label class="label" for="input-senha">Senha:</label>
-          <input nbInput fullWidth [(ngModel)]="user.senha" #senha="ngModel" name="senha" type="senha" id="input-senha"
-            placeholder="Sua senha" [status]="
+          <input nbInput fullWidth [(ngModel)]="user.senha" #senha="ngModel" name="senha" type="password"
+            id="input-senha" placeholder="Sua senha" [status]="
               senha.dirty ? (senha.invalid ? 'danger' : 'success') : 'basic'
             " [required]="getConfigValue('forms.validation.senha.required')"
             [minlength]="getConfigValue('forms.validation.senha.minLength')"

@@ -13,12 +13,6 @@ export const MENU_ITEMS_BASIC: NbMenuItem[] = [
     link: '/pages/formularios',
     home: true,
   },
-  {
-    title: 'Resposta',
-    icon: 'checkmark-circle-outline',
-    link: '/pages/resposta',
-    home: true,
-  },
 ];
 export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
   {
@@ -28,7 +22,7 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'Usuários',
+    title: 'Colaboradores',
     icon: 'people-outline',
     link: '/pages/usuarios',
     home: true,
@@ -37,12 +31,6 @@ export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
     title: 'Formulários',
     icon: 'clipboard-outline',
     link: '/pages/formularios',
-    home: true,
-  },
-  {
-    title: 'Resposta',
-    icon: 'checkmark-circle-outline',
-    link: '/pages/resposta',
     home: true,
   },
 ];

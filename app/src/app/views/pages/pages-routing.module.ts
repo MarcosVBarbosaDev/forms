@@ -37,6 +37,11 @@ export const routes: Routes = [
         component: FormulariosComponent,
       },
       {
+        path: 'repostas',
+        title: title + 'Respostas',
+        component: FormulariosComponent,
+      },
+      {
         path: '**',
         title: title + 'Home',
         component: HomeComponent,
@@ -54,4 +59,4 @@ export const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PagesRoutingModule {}
+export class PagesRoutingModule { }

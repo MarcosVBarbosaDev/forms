@@ -4,15 +4,15 @@ import { NbDialogRef, NbDialogService, NbThemeService, NbToastrService } from '@
 import { ApiService } from 'src/app/services/api.service';
 
 import { IColumnType, LocalDataSource, Settings } from 'angular2-smart-table';
-import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { ListaPerguntasComponent } from '../../modal/lista-perguntas/lista-perguntas.component';
 import { FormNovoFormularioComponent } from '../../modal/form-novo-formulario/form-novo-formulario.component';
+import { RespostasComponent } from '../respostas/respostas.component';
 
 @Component({
   template: `
   <div class="example-items-rows">
-  <button nbButton shape="round" (click)="openListPerguntas()" outline nbPopover="Adicionar pergunta ao Formularios" nbPopoverTrigger="hover" nbPopoverPlacement="left" status="primary" size="small"><nb-icon icon="file-text-outline"></nb-icon> </button>
-  <button nbButton shape="round" (click)="onContatos()" outline nbPopover="Contatos" nbPopoverTrigger="hover" nbPopoverPlacement="left" status="success" size="small"><nb-icon icon="checkmark-circle-outline"></nb-icon> </button>
+    <button nbButton shape="round" (click)="openListPerguntas()" outline nbPopover="Perguntas" nbPopoverTrigger="hover" nbPopoverPlacement="left" status="primary" size="small"><nb-icon icon="file-text-outline"></nb-icon> </button>
+    <button nbButton shape="round" (click)="onRespostas()" outline nbPopover="Respostas" nbPopoverTrigger="hover" nbPopoverPlacement="right" status="success" size="small"><nb-icon icon="checkmark-circle-outline"></nb-icon> </button>
   </div>
   `,
   styleUrls: ['./formularios.component.scss']
@@ -28,7 +28,18 @@ export class BtnPgtaFormulariosComponent implements OnInit {
 
   }
 
-  onContatos() { }
+  onRespostas() { 
+    this._dialogService.open(RespostasComponent, {
+      context: {
+        id_formulario: this.rowData.id_formulario,
+        titulo: this.rowData.formulario,
+      },
+      closeOnEsc: true,
+      hasBackdrop: true,
+      closeOnBackdropClick: false,
+      hasScroll: true
+    });
+  }
 
   openListPerguntas() {
     this._dialogService.open(ListaPerguntasComponent, {
@@ -86,20 +97,18 @@ export class FormulariosComponent {
       ],
     },
     columns: {
-      formulario: {
-        width: '60%',
-        title: 'Titulo',
-        sortDirection: 'asc',
-      },
       data_format: {
-        width: '30%',
+        width: '150px',
         title: 'Data',
+        sortDirection: 'desc',
+        classContent: 'text-center'
+      },
+      formulario: {
+        title: 'Titulo',
       },
       ativo: {
-        title: '',
-        width: '10%',
+        width: '100px',
         type: IColumnType.Custom,
-        sortDirection: 'desc',
         renderComponent: BtnPgtaFormulariosComponent,
         filter: false,
       },

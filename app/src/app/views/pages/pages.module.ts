@@ -16,6 +16,7 @@ import {
   NbSidebarModule,
   NbSpinnerModule,
   NbTabsetModule,
+  NbTagModule,
   NbThemeModule,
   NbToastrModule,
   NbToggleModule,
@@ -31,12 +32,12 @@ import { PagesComponent } from './pages.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { SidebarComponent } from '../components/sidebar/sidebar.component';
-import { ModalModule } from '../modal/modal.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { UsuariosComponent, BtnStatusUsuarioComponent, } from './usuarios/usuarios.component';
 import { FormulariosComponent, BtnPgtaFormulariosComponent } from './formularios/formularios.component';
+import { RespostasComponent } from './respostas/respostas.component';
 
 @NgModule({
   declarations: [
@@ -50,12 +51,13 @@ import { FormulariosComponent, BtnPgtaFormulariosComponent } from './formularios
     UsuariosComponent,
     FormulariosComponent,
     BtnPgtaFormulariosComponent,
+    RespostasComponent
   ],
   imports: [
     Angular2SmartTableModule,
     FormsModule,
+    NbTagModule,
     CommonModule,
-    ModalModule,
     NbActionsModule,
     NbContextMenuModule,
     NbThemeModule.forRoot({ name: 'default' }),
