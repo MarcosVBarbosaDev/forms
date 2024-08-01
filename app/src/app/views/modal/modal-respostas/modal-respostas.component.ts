@@ -21,9 +21,7 @@ export class ModalRespostasComponent implements OnInit {
   constructor(
     private _provider: ApiService,
     protected _dialogRef: NbDialogRef<''>
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
     // CARREGA CADASTRO

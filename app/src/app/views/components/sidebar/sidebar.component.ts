@@ -23,5 +23,5 @@ export class SidebarComponent implements OnInit {
     return this.user.user_permission == 1 ? MENU_ITEMS_BASIC : MENU_ITEMS_ADMIN;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

@@ -24,8 +24,8 @@ export class ApiService {
 
     return this.http.get(url, this._httpoptions).pipe(
       map((res: any) => res),
-      retry(1),
-      timeout(5000),
+      retry(3),
+      timeout(10000),
       catchError((err: any): any => {
         if (err.name === 'TimeoutError') {
           this.showToast(

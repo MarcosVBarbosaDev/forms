@@ -1,0 +1,36 @@
+/* Garante que o nb-card ocupe toda a altura da viewport */
+.nb-card.h-100 {
+    height: 100vh;
+    /* altura total da viewport */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Faz o corpo do card rolar quando o conteúdo excede a altura disponível */
+.nb-card-body {
+    flex: 1;
+    overflow-y: auto;
+    /* Adiciona scrollbar vertical quando necessário */
+}
+
+/* Estilos padrão para a imagem */
+.img-responsive {
+    max-width: 100%;
+    /* Garante que a imagem não exceda a largura do contêiner */
+    height: auto;
+    /* Mantém a proporção da imagem */
+}
+
+/* Estilos específicos para desktops */
+@media (min-width: 992px) {
+
+    /* 992px é o breakpoint para dispositivos desktop no Bootstrap */
+    .img-responsive {
+        max-width: 450px;
+        /* Define a largura máxima para desktops */
+        margin: 0 auto;
+        /* Centraliza a imagem no contêiner */
+        display: block;
+        /* Remove espaço extra abaixo da imagem */
+    }
+}

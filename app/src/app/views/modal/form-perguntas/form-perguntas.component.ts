@@ -187,21 +187,6 @@ export class FormPerguntasComponent {
     }
   }
 
-  tipo_selecionado(): void {
-    const tipoSelecionado = this.formulario.controls['tipo'].value;
-
-    this.mostraroptions = tipoSelecionado == 3 || tipoSelecionado == 4 || tipoSelecionado == 5;
-
-    if (this.mostraroptions && !this.hasOptionsControl) {
-      this.formulario.addControl('options', this._formBuilder.control(null, Validators.required));
-      this.hasOptionsControl = true;
-    } else if (!this.mostraroptions && this.hasOptionsControl) {
-      this.formulario.removeControl('options');
-      this.trees.clear();
-      this.hasOptionsControl = false;
-    }
-  }
-
   remove_option(tagToRemove: NbTagComponent): void {
     this.trees.delete(tagToRemove.text);
   }

@@ -1,5 +1,4 @@
-<!-- <div class="nb-card-modal"> -->
-<nb-card class="col-6 mx-auto" [nbSpinner]="loading">
+<nb-card class="col-6 mx-auto h-100" [nbSpinner]="loading">
     <nb-card-header>
         <div class="row">
             <div class="col">
@@ -13,11 +12,13 @@
             </div>
         </div>
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body class="overflow-auto">
         <div class="row">
             <div class="col-12 mb-3" *ngFor="let componente of componentes">
-                <label class="label">{{ componente.label }}: </label>
-                <input nbInput fullWidth [value]="componente.value" disabled>
+                <label class="label">{{ componente.label }}: </label><br>
+                <img *ngIf="componente.value.includes('data:image')" [src]="componente.value" class="img-responsive">
+                <input *ngIf="!componente.value.includes('data:image')" nbInput fullWidth [value]="componente.value"
+                    disabled>
             </div>
         </div>
     </nb-card-body>
@@ -29,4 +30,3 @@
         </div>
     </nb-card-footer>
 </nb-card>
-<!-- </div> -->

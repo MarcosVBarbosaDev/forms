@@ -6,13 +6,7 @@ export const MENU_ITEMS_BASIC: NbMenuItem[] = [
     icon: 'home-outline',
     link: '/pages',
     home: true,
-  },
-  {
-    title: 'Formulários',
-    icon: 'clipboard-outline',
-    link: '/pages/formularios',
-    home: true,
-  },
+  }
 ];
 export const MENU_ITEMS_ADMIN: NbMenuItem[] = [
   {

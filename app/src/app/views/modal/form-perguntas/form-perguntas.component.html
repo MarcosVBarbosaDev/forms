@@ -24,27 +24,28 @@
                     <label class="label" for="tipo">Tipo de resposta: <span class="text-danger">*</span></label>
                     <nb-select placeholder="Selecione um tipo" formControlName="tipo" fullWidth
                         [status]="!formulario.controls['tipo'].valid ? 'danger' : 'basic'">
-                        <nb-option *ngFor="let item of items" (click)="tipo_selecionado()" [value]="item.value">{{
+                        <nb-option *ngFor="let item of items" [value]="item.value">{{
                             item.title }}</nb-option>
                     </nb-select>
                 </div>
             </div>
 
-            <div *ngIf="mostraroptions">
-                <div class="col">
-                    <label class="label" for="options">Opções: <span class="text-danger">*</span></label>
-                    <nb-tag-list (tagRemove)="remove_option($event)">
-                        <nb-tag *ngFor="let tree of trees" [text]="tree" removable></nb-tag>
-                        <input class="w-100" type="text" nbTagInput (tagAdd)="add_option($event)" [(ngModel)]="options"
-                            fullWidth [ngModelOptions]="{ standalone: true }">
-                    </nb-tag-list>
-                </div>
+
+            <div *ngIf="formulario.controls['tipo'].value == 3 || formulario.controls['tipo'].value == 4 || formulario.controls['tipo'].value == 5" class="col">
+                <label class="label" for="options">Opções: <span class="text-danger">*</span></label>
+                <nb-tag-list (tagRemove)="remove_option($event)">
+                    <nb-tag *ngFor="let tree of trees" [text]="tree" removable></nb-tag>
+                    <input class="w-100" type="text" nbTagInput (tagAdd)="add_option($event)" [(ngModel)]="options"
+                        fullWidth [ngModelOptions]="{ standalone: true }">
+                </nb-tag-list>
             </div>
+
+
 
         </nb-card-body>
         <nb-card-footer class="d-flex justify-content-end px-4">
-            <button type="button" nbButton status="primary" size="large"
-                [disabled]="!formulario.valid" (click)="onSubmit()">
+            <button type="button" nbButton status="primary" size="large" [disabled]="!formulario.valid"
+                (click)="onSubmit()">
                 Salvar
             </button>
         </nb-card-footer>
