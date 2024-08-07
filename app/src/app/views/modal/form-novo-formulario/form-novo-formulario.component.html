@@ -17,16 +17,26 @@
             </nb-card-header>
             <nb-card-body>
                 <div class="row mb-3">
-                    <label class="label mb-1" for="nome">Titulo: <span class="text-danger">*</span></label>
-                    <input type="text" nbInput fullWidth id="formulario" placeholder="Digite o Titulo completo"
-                        [status]="!formulario.controls['formulario'].valid ? 'danger' : 'basic'"
-                        formControlName="formulario" />
+                    <div class="col-md-10">
+                        <label class="label" for="nome">Titulo: <span class="text-danger">*</span></label>
+                        <input type="text" nbInput fullWidth id="formulario" placeholder="Digite o Titulo completo"
+                            [status]="!formulario.controls['formulario'].valid ? 'danger' : 'basic'"
+                            formControlName="formulario" />
+                    </div>
+                    <div class="col-md">
+                        <label class="label" for="ordem">Ordem: <span class="text-danger">*</span></label>
+                        <input type="number" nbInput fullWidth id="ordem" placeholder="Informe a ordem do formulário"
+                            [status]="!formulario.controls['ordem'].valid ? 'danger' : 'basic'" min="0"
+                            formControlName="ordem" />
+                    </div>
                 </div>
-                <div class="row mb-3 h-50">
-                    <label class="label mb-1" for="descricao">Descrição<span class="text-danger">*</span></label>
-                    <textarea id="descricao" formControlName="descricao" nbInput fullWidth
-                        [status]="!formulario.controls['descricao'].valid ? 'danger' : 'basic'" placeholder="Textarea"
-                        class="form-control h-100 "></textarea>
+                <div class="row mb-3">
+                    <div class="col-md">
+                        <label class="label" for="descricao">Descrição<span class="text-danger">*</span></label>
+                        <textarea id="descricao" formControlName="descricao" nbInput fullWidth
+                            [status]="!formulario.controls['descricao'].valid ? 'danger' : 'basic'" placeholder="Textarea"
+                            class="form-control h-100 "></textarea>
+                    </div>
                 </div>
             </nb-card-body>
             <nb-card-footer class="d-flex justify-content-end px-4">

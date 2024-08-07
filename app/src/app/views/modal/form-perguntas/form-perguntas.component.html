@@ -14,12 +14,20 @@
             </div>
         </nb-card-header>
         <nb-card-body>
-            <div class="row">
-                <div class="col-md-12 mb-3">
+            <div class="row mb-3">
+                <div class="col-md-10">
                     <label class="label" for="label">Pergunta: <span class="text-danger">*</span></label>
                     <input nbInput fullWidth id="label" placeholder="Digite a pergunta completa"
                         [status]="!formulario.controls['label'].valid ? 'danger' : 'basic'" formControlName="label">
                 </div>
+                <div class="col-md">
+                    <label class="label" for="ordem">Ordem: <span class="text-danger">*</span></label>
+                    <input type="number" nbInput fullWidth id="ordem" placeholder="Informe a ordem do formulário"
+                        [status]="!formulario.controls['ordem'].valid ? 'danger' : 'basic'" min="0"
+                        formControlName="ordem" />
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="label" for="tipo">Tipo de resposta: <span class="text-danger">*</span></label>
                     <nb-select placeholder="Selecione um tipo" formControlName="tipo" fullWidth
@@ -31,7 +39,8 @@
             </div>
 
 
-            <div *ngIf="formulario.controls['tipo'].value == 3 || formulario.controls['tipo'].value == 4 || formulario.controls['tipo'].value == 5" class="col">
+            <div *ngIf="formulario.controls['tipo'].value == 3 || formulario.controls['tipo'].value == 4 || formulario.controls['tipo'].value == 5"
+                class="col">
                 <label class="label" for="options">Opções: <span class="text-danger">*</span></label>
                 <nb-tag-list (tagRemove)="remove_option($event)">
                     <nb-tag *ngFor="let tree of trees" [text]="tree" removable></nb-tag>

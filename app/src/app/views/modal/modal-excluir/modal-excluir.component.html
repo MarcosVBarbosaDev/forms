@@ -1,9 +1,8 @@
-<nb-card class="col-6 mx-auto h-100" [nbSpinner]="loading">
+<nb-card [nbSpinner]="loading">
     <nb-card-header>
         <div class="row">
             <div class="col">
-                {{ formulario }}<br>
-                <span style="font-size: .75rem">{{ usuario }}</span>
+                Remover
             </div>
             <div class="col-2">
                 <button type="button" nbButton status="danger" class="close float-end" (click)="close()" size="tiny">
@@ -14,18 +13,20 @@
     </nb-card-header>
     <nb-card-body class="overflow-auto">
         <div class="row">
-            <div class="col-12 mb-3" *ngFor="let componente of componentes">
-                <label class="label">{{ componente.label }}: </label><br>
-                <img *ngIf="componente.value.includes('arquivos')" src="https://pmoassessoria.com.br/painel-app/_backend/respostas/{{ componente.value }}" class="img-responsive">
-                <input *ngIf="!componente.value.includes('arquivos')" nbInput fullWidth [value]="componente.value"
-                    disabled>
+            <div class="col-12 mb-3">
+                Deseja realmente excluir este registro?
             </div>
         </div>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-end px-4">
-        <div class="">
+        <div class="mx-1">
             <button nbButton status="danger" (click)="close()">
                 Fechar
+            </button>
+        </div>
+        <div class="mx-1">
+            <button nbButton status="primary" (click)="confirm()">
+                Sim
             </button>
         </div>
     </nb-card-footer>

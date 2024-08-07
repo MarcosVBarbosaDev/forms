@@ -27,9 +27,10 @@ import { FormPerguntasComponent } from './form-perguntas/form-perguntas.componen
 import { BtnStatusObrigatorioComponent, ListaPerguntasComponent } from './lista-perguntas/lista-perguntas.component';
 import { Angular2SmartTableModule } from 'angular2-smart-table';
 import { ModalRespostasComponent } from './modal-respostas/modal-respostas.component';
+import { ModalExcluirComponent } from './modal-excluir/modal-excluir.component';
 
 @NgModule({
-  declarations: [FormUserComponent, FormResetPasswordComponent, FormNovoFormularioComponent, FormPerguntasComponent, ListaPerguntasComponent, BtnStatusObrigatorioComponent, ModalRespostasComponent],
+  declarations: [FormUserComponent, FormResetPasswordComponent, FormNovoFormularioComponent, FormPerguntasComponent, ListaPerguntasComponent, BtnStatusObrigatorioComponent, ModalRespostasComponent, ModalExcluirComponent],
   imports: [
     Angular2SmartTableModule,
     CommonModule,

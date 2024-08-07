@@ -37,6 +37,7 @@ export class FormNovoFormularioComponent {
     formulario: [null, [Validators.required]],
     descricao: [null, [Validators.required]],
     acesso: ["TODOS", [Validators.required]],
+    ordem: [0, [Validators.required, Validators.min(0)]],
   });
 
 
@@ -85,6 +86,7 @@ export class FormNovoFormularioComponent {
 
   setForm(id: number) {
     this.loading = true;
+    this.method = "PUT"
 
     let path = 'formularios/?id=' + id;
 
@@ -96,6 +98,7 @@ export class FormNovoFormularioComponent {
           formulario: data['result']['formulario'],
           descricao: data['result']['descricao'],
           acesso: data['result']['acesso'],
+          ordem: data['result']['ordem'],
         })
       } else {
         this._provider.showToast('OPS!', data['result'], 'danger');

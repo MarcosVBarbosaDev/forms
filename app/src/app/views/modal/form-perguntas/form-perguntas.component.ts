@@ -52,7 +52,8 @@ export class FormPerguntasComponent {
   public formulario: FormGroup = this._formBuilder.group({
     label: [null, [Validators.required]],
     tipo: [null, [Validators.required]],
-    options: [null]
+    options: [null],
+    ordem: [0, [Validators.required, Validators.min(0)]],
   });
 
 
@@ -80,10 +81,11 @@ export class FormPerguntasComponent {
           } else {
             this.mostraroptions = false;
           }
-
+          
           this.formulario.patchValue({
             label: data['result']['label'],
             tipo: data['result']['id_componente'],
+            ordem: data['result']['ordem'],
           });
 
         } else {

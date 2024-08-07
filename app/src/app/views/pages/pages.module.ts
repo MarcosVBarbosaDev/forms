@@ -36,7 +36,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { UsuariosComponent, BtnStatusUsuarioComponent, } from './usuarios/usuarios.component';
-import { FormulariosComponent, BtnPgtaFormulariosComponent } from './formularios/formularios.component';
+import { FormulariosComponent, BtnPgtaFormulariosComponent, BtnExibirFormulariosComponent } from './formularios/formularios.component';
 import { RespostasComponent } from './respostas/respostas.component';
 
 @NgModule({
@@ -51,6 +51,7 @@ import { RespostasComponent } from './respostas/respostas.component';
     UsuariosComponent,
     FormulariosComponent,
     BtnPgtaFormulariosComponent,
+    BtnExibirFormulariosComponent,
     RespostasComponent
   ],
   imports: [

@@ -7,6 +7,7 @@ import { IColumnType, LocalDataSource, Settings } from 'angular2-smart-table';
 import { ListaPerguntasComponent } from '../../modal/lista-perguntas/lista-perguntas.component';
 import { FormNovoFormularioComponent } from '../../modal/form-novo-formulario/form-novo-formulario.component';
 import { RespostasComponent } from '../respostas/respostas.component';
+import { ModalExcluirComponent } from '../../modal/modal-excluir/modal-excluir.component';
 
 @Component({
   template: `
@@ -28,7 +29,7 @@ export class BtnPgtaFormulariosComponent implements OnInit {
 
   }
 
-  onRespostas() { 
+  onRespostas() {
     this._dialogService.open(RespostasComponent, {
       context: {
         id_formulario: this.rowData.id_formulario,
@@ -52,6 +53,67 @@ export class BtnPgtaFormulariosComponent implements OnInit {
       closeOnBackdropClick: false,
       hasScroll: true
     });
+  }
+}
+
+@Component({
+  template: `
+  <div class="example-items-rows">
+      <nb-toggle
+        [checked]="rowData.exibir == 1 ? true : false"
+        (checkedChange)="onSwitch($event)"
+        [status]="color"
+      ></nb-toggle>
+    </div>
+  `,
+  styleUrls: ['./formularios.component.scss']
+})
+export class BtnExibirFormulariosComponent implements OnInit {
+  @Input() rowData: any;
+  public color: any;
+
+  constructor(
+    private _provider: ApiService,
+    private _toastrService: NbToastrService,
+  ) { }
+
+  ngOnInit(): void {
+    if (this.rowData.exibir == 1) {
+      this.color = 'info';
+    } else {
+      this.color = 'danger';
+    }
+  }
+
+  onSwitch(event: any) {
+
+    if (event) {
+      this.rowData.exibir = 1;
+      this.color = 'info';
+    } else {
+      this.rowData.exibir = 0;
+      this.color = 'danger';
+    }
+
+    let dados = {
+      id_formulario: this.rowData.id_formulario,
+      exibir: this.rowData.exibir
+    }
+
+    this._provider.putAPI('formularios/', dados).subscribe(
+      (data: any) => {
+        if (data['status'] == 'success') {
+          this._toastrService.show(data['status'], 'Oba!', {
+            status: 'success',
+            duration: 8000,
+          });
+        } else {
+          this._toastrService.show(data['status'], 'Ops!', {
+            status: 'danger',
+            duration: 8000,
+          });
+        }
+      });
   }
 }
 
@@ -94,13 +156,22 @@ export class FormulariosComponent {
           name: 'edit',
           title: '<i class="bi bi-pencil"></i> ',
         },
+        {
+          name: 'remove',
+          title: '<i class="bi bi-trash"></i> ',
+        },
       ],
     },
     columns: {
+      ordem: {
+        width: '80px',
+        title: 'Ordem',
+        sortDirection: "asc",
+        classContent: 'text-center'
+      },
       data_format: {
         width: '150px',
         title: 'Data',
-        sortDirection: 'desc',
         classContent: 'text-center'
       },
       formulario: {
@@ -110,6 +181,12 @@ export class FormulariosComponent {
         width: '100px',
         type: IColumnType.Custom,
         renderComponent: BtnPgtaFormulariosComponent,
+        filter: false,
+      },
+      exibir: {
+        width: '100px',
+        type: IColumnType.Custom,
+        renderComponent: BtnExibirFormulariosComponent,
         filter: false,
       },
     },
@@ -154,6 +231,15 @@ export class FormulariosComponent {
     if (event.action == 'edit') {
       // OPÇÃO PARA EDITAR
       this.showDialog(event.data.id_formulario, 'PUT');
+    } else if (event.action == 'remove') {
+      // OPÇÃO PARA EDITAR
+      this._dialogService.open(ModalExcluirComponent, {
+        context: {
+          id: event.data.id_formulario
+        }
+      })
+        .onClose.subscribe(update => update && this.getDados()
+        );
     }
   }
 
